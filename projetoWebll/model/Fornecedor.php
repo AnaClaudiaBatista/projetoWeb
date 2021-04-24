@@ -1,15 +1,15 @@
 <?php
 class Fornecedor{
     
-    private $fornecedorID;
+    private $fornecedorid;
     private $nome;
     private $cnpj; 
     private $descricao;
     private $telefone;
     private $email;
-    public function __construct($fornecedorID, $nome, $cnpj,$descricao, $telefone, $email)
+    public function __construct($fornecedorid, $nome, $cnpj,$descricao, $telefone, $email)
     {
-        $this->fornecedorID=$fornecedorID;
+        $this->fornecedorid=$fornecedorid;
         $this->nome=$nome;
         $this->cnpj=$cnpj;
         $this->descricao=$descricao;
@@ -18,8 +18,8 @@ class Fornecedor{
         
     }
 
-    public function getFornecedorID() { return $this->fornecedorID; }
-    public function setFornecedorID($fornecedorID) {$this->fornecedorID = $fornecedorID;}
+    public function getFornecedorid() { return $this->fornecedorid; }
+    public function setFornecedorid($fornecedorid) {$this->fornecedorid = $fornecedorid;}
     
     public function getNome() { return $this->nome; }
     public function setNome($nome) {$this->nome = $nome;}

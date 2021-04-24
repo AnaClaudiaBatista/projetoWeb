@@ -56,7 +56,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
 
         $query = "UPDATE " . $this->table_name . 
         " SET nome = :nome, cnpj = :cnpj, descricao = :descricao, telefone = :telefone, email = :email" .
-        " WHERE cnpj = :cnpj";
+        " WHERE fonecedorid = :fornecedorid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -107,7 +107,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
         $fornecedores = array();
 
         $query = "SELECT
-                    fornecedorid,nome, cnpj, descricao, telefone, email
+                    fornecedorid, nome, cnpj, descricao, telefone, email
                 FROM
                     " . $this->table_name . 
                     " ORDER BY nome ASC";
@@ -117,7 +117,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $fornededores[] = new Fornecedor($fornecedorid, $nome,$cnpj, $descricao, $telefone,$email);
+            $fornecedores[] = new Fornecedor($fornecedorid, $nome,$cnpj, $descricao, $telefone, $email);
         }
         
         return $fornecedores;

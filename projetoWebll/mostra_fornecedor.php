@@ -16,7 +16,7 @@ include_once "teste_layout_header.php";
 if($fornecedor) {
 echo "<section>";
 //dados do usuário
-echo "<h1>ID       : " . $fornecedor->getfornecedorID() . "</h1>";
+echo "<h1>ID       : " . $fornecedor->getfornecedorid() . "</h1>";
 echo "<p> Nome     : " . $fornecedor->getNome() . "</p>";
 echo "<p> CNPJ     : " . $fornecedor->getCnpj() . "</p>";
 echo "<p> Telefone : " . $fornecedor->getTelefone() . "</p>";
