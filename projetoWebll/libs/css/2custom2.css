@@ -1,0 +1,51 @@
+header,
+nav,
+aside,
+footer {
+    background-color: rgb(107, 106, 106);
+}
+
+section {
+    /* cor da table*/
+    background-color: rgb(248, 248, 248);
+}
+
+article {
+    border: 5px solid white;
+    margin: 5px;
+    padding: 5px;
+    background-color: rgb(0, 104, 168);
+}
+
+header {
+    margin-top: 0;
+    grid-area: header;
+}
+
+nav {
+    grid-area: menu;
+}
+
+section {
+    grid-area: main;
+}
+
+aside {
+    grid-area: sidebar;
+}
+
+footer {
+    grid-area: footer;
+}
+
+footer p {
+    text-align: center;
+}
+
+body {
+    font-family: sans-serif;
+    display: grid;
+    grid-template-areas: 'header header header header header header' 'menu main main main main main' 'menu main main main main main' 'footer footer footer footer footer footer';
+    grid-gap: 10px;
+    padding: 10px;
+}
