@@ -26,4 +26,3 @@ class Usuario {
     public function getSenha() { return $this->senha; }
     public function setSenha($senha) {$this->senha = $senha;}
 }
-?>

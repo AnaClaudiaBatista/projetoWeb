@@ -3,24 +3,19 @@
 include_once('ClienteDao.php');
 include_once('PostgresDao.php');
 
-class PostgresClienteDao extends PostgresDao implements ClienteDao {
-
+class PostgresClienteDao extends PostgresDao implements ClienteDao
+{
     private $table_name = 'cliente';
-    
+
     public function insere($cliente) {
 
-        $query = "INSERT INTO " . $this->table_name . 
-        " ( nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
-        " (:nome, :cpf, :telefone, :email, :cartaocredito)";
+        $query = "INSERT INTO " . $this->table_name .
+            " ( nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
+            " (:nome, :cpf, :telefone, :email, :cartaocredito)";
 
         $stmt = $this->conn->prepare($query);
 
-        /*$stmt->bindParam(":nome", $cliente->getNome());
-        $stmt->bindParam(":cpf", $cliente->getCpf());
-        $stmt->bindParam(":telefone", $cliente->getTelefone());
-        $stmt->bindParam(":email", $cliente->getEmail());
-        $stmt->bindParam(":cartaocredito", $cliente->getCartaocredito());*/
-
+       
         $stmt->bindValue(":nome", $cliente->getNome());
         $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":telefone", $cliente->getTelefone());
@@ -28,17 +23,17 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $stmt->bindValue(":cartaocredito", $cliente->getCartaocredito());
         //ver como inserir o endereco
 
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
-
     }
 
-    public function removePorId($clienteid) {
-        $query = "DELETE FROM " . $this->table_name . 
-        " WHERE clienteid = :clienteid";
+    public function removePorId($clienteid)
+    {
+        $query = "DELETE FROM " . $this->table_name .
+            " WHERE clienteid = :clienteid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -46,22 +41,23 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $stmt->bindParam(':clienteid', $clienteid);
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }    
+        }
 
         return false;
     }
-/*
+    /*
     public function remove($cliente) {
         return removePorId($cliente->getCPF());
     }*/
 
-    public function altera(&$cliente) {
+    public function altera(&$cliente)
+    {
 
-        $query = "UPDATE " . $this->table_name . 
-        " SET nome = :nome, cpf = :cpf, telefone = :telefone, email = :email" .
-        " WHERE clienteid = :clienteid";
+        $query = "UPDATE " . $this->table_name .
+            " SET nome = :nome, cpf = :cpf, telefone = :telefone, email = :email" .
+            " WHERE clienteid = :clienteid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -72,15 +68,16 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $stmt->bindParam(':email', $cliente->getEmail());
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }    
+        }
 
         return false;
     }
 
-    public function buscaPorId($clienteid) {  //busca por cpf
-        
+    public function buscaPorId($clienteid)
+    {  //busca por cpf
+
         $cliente = null;
 
         $query = "SELECT
@@ -91,41 +88,40 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
                     clienteid = ?
                 LIMIT
                     1 OFFSET 0";
-     
-        $stmt = $this->conn->prepare( $query );
+
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $clienteid);
         $stmt->execute();
-     
+
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($row) {
-            $cliente = new Cliente($row['clienteid'], $row['nome'],$row['cpf'], $row['telefone'], $row['email'], $row['cartaocredito']);
-        } 
-     
+        if ($row) {
+            $cliente = new Cliente($row['clienteid'], $row['nome'], $row['cpf'], $row['telefone'], $row['email'], $row['cartaocredito']);
+        }
+
         return $cliente;
     }
 
 
 
-    public function buscaTodos() {
+    public function buscaTodos()
+    {
 
         $clientes = array();
 
         $query = "SELECT
                     clienteid, nome, cpf, telefone, email,cartaocredito
                 FROM
-                    " . $this->table_name . 
-                    " ORDER BY nome ASC";
-     
-        $stmt = $this->conn->prepare( $query );
+                    " . $this->table_name .
+            " ORDER BY nome ASC";
+
+        $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $clientes[] = new Cliente($clienteid, $nome, $cpf, $telefone, $email,$cartaocredito);
-            
+            $clientes[] = new Cliente($clienteid, $nome, $cpf, $telefone, $email, $cartaocredito);
         }
-        
+
         return $clientes;
     }
 }
-?>

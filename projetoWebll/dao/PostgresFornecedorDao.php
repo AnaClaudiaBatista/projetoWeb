@@ -3,60 +3,63 @@
 include_once('FornecedorDao.php');
 include_once('PostgresDao.php');
 
-class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
+class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
+{
 
     private $table_name = 'fornecedor';
-    
-    public function insere($fornecedor) {
 
-        $query = "INSERT INTO " . $this->table_name . 
-        " ( nome,  cnpj, descricao,  telefone, email) VALUES" .
-        " (:nome, :cnpj,:descricao, :telefone,:email)";
+    public function insere($fornecedor)
+    {
+
+        $query = "INSERT INTO " . $this->table_name .
+            " ( nome,  cnpj, descricao,  telefone, email) VALUES" .
+            " (:nome, :cnpj,:descricao, :telefone,:email)";
 
         $stmt = $this->conn->prepare($query);
 
-        // bind values 
-        $stmt->bindParam(":nome", $fornecedor->getNome());
-        $stmt->bindParam(":cnpj", $fornecedor->getCnpj());
-        $stmt->bindParam(":descricao", $fornecedor->getDescricao());
-        $stmt->bindParam(":telefone", $fornecedor->getTelefone());
-        $stmt->bindParam(":email", $fornecedor->getEmail());
+        // bind values bindParam || bindValue 
+        $stmt->bindValue(":nome", $fornecedor->getNome());
+        $stmt->bindValue(":cnpj", $fornecedor->getCnpj());
+        $stmt->bindValue(":descricao", $fornecedor->getDescricao());
+        $stmt->bindValue(":telefone", $fornecedor->getTelefone());
+        $stmt->bindValue(":email", $fornecedor->getEmail());
         /*ver como inserir o endereco*/
 
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }else{
+        } else {
             return false;
         }
-
     }
 
-    public function removePorId($fornecedorid) { /*por cnpj*/
-        $query = "DELETE FROM " . $this->table_name . 
-        " WHERE fornecedorid = :fornecedorid";
+    public function removePorId($fornecedorid)
+    { /*por cnpj*/
+        $query = "DELETE FROM " . $this->table_name .
+            " WHERE fornecedorid = :fornecedorid";
 
         $stmt = $this->conn->prepare($query);
 
         // bind parameters
-        $stmt->bindParam(':fornecedorid',$fornecedorid);
+        $stmt->bindParam(':fornecedorid', $fornecedorid);
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }    
+        }
 
         return false;
     }
-/*
+    /*
     public function remove($fornecedor) {
         return removePorId($fornecedor->getCNPJ());
     }*/
 
-    public function altera(&$fornecedor) {
+    public function altera(&$fornecedor)
+    {
 
-        $query = "UPDATE " . $this->table_name . 
-        " SET nome = :nome, cnpj = :cnpj, descricao = :descricao, telefone = :telefone, email = :email" .
-        " WHERE fonecedorid = :fornecedorid";
+        $query = "UPDATE " . $this->table_name .
+            " SET nome = :nome, cnpj = :cnpj, descricao = :descricao, telefone = :telefone, email = :email" .
+            " WHERE fonecedorid = :fornecedorid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -68,15 +71,16 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
         $stmt->bindParam(':email', $fornecedor->getEmail());
 
         // execute the query
-        if($stmt->execute()){
+        if ($stmt->execute()) {
             return true;
-        }    
+        }
 
         return false;
     }
 
-    public function buscaPorId($fornecedorid) { 
-        
+    public function buscaPorId($fornecedorid)
+    {
+
         $fornecedor = null;
 
         $query = "SELECT
@@ -87,39 +91,40 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao {
                     fornecedorid = ?
                 LIMIT
                     1 OFFSET 0";
-     
-        $stmt = $this->conn->prepare( $query );
+
+        $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $fornecedorid);
         $stmt->execute();
-     
+
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        if($row) {
-            $fornecedor = new Fornecedor($row['fornecedorid'], $row['nome'],$row['cnpj'],$row['descricao'], $row['telefone'], $row['email']);
-        } 
-     
+        if ($row) {
+            $fornecedor = new Fornecedor($row['fornecedorid'], $row['nome'], $row['cnpj'], $row['descricao'], $row['telefone'], $row['email']);
+        }
+
         return $fornecedor;
     }
 
 
 
-    public function buscaTodos() {
+    public function buscaTodos()
+    {
 
         $fornecedores = array();
 
         $query = "SELECT
                     fornecedorid, nome, cnpj, descricao, telefone, email
                 FROM
-                    " . $this->table_name . 
-                    " ORDER BY nome ASC";
-     
-        $stmt = $this->conn->prepare( $query );
+                    " . $this->table_name .
+            " ORDER BY nome ASC";
+
+        $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $fornecedores[] = new Fornecedor($fornecedorid, $nome,$cnpj, $descricao, $telefone, $email);
+            $fornecedores[] = new Fornecedor($fornecedorid, $nome, $cnpj, $descricao, $telefone, $email);
         }
-        
+
         return $fornecedores;
     }
 }

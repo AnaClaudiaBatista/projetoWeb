@@ -1,7 +1,7 @@
 <?php
 
 include_once "teste_layout_header.php";
-?>  
+?>
 
 <form>
   <form action="insere_fornecedor.php" method="get">
@@ -69,10 +69,12 @@ include_once "teste_layout_header.php";
         </div>
       </div>
       <button href='insere_fornecedor.php' type="submit" class="btn btn-primary">Cadastrar</button>
-    </div>
-
+      </div>
   </form>
+</body>
 
-  <?php
+</html>
+
+<?php
 
   include_once "teste_layout_footer.php"; ?>
