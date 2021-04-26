@@ -15,7 +15,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
         $stmt = $this->conn->prepare($query);
 
-       
+         // bindValue || bindParam
         $stmt->bindValue(":nome", $cliente->getNome());
         $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":telefone", $cliente->getTelefone());
@@ -38,7 +38,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $stmt = $this->conn->prepare($query);
 
         // bind parameters
-        $stmt->bindParam(':clienteid', $clienteid);
+        $stmt->bindValue(':clienteid', $clienteid);
 
         // execute the query
         if ($stmt->execute()) {
@@ -52,7 +52,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         return removePorId($cliente->getCPF());
     }*/
 
-    public function altera(&$cliente)
+    public function altera($cliente)
     {
 
         $query = "UPDATE " . $this->table_name .
@@ -61,11 +61,12 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
         $stmt = $this->conn->prepare($query);
 
-        // bind parameters
-        $stmt->bindParam(":nome", $cliente->getNome());
-        $stmt->bindParam(":cpf", md5($cliente->getCPF()));
-        $stmt->bindParam(":telefone", $cliente->getTelefone());
-        $stmt->bindParam(':email', $cliente->getEmail());
+        // bindValue || bindParam
+        $stmt->bindValue(":nome", $cliente->getNome());
+        $stmt->bindValue(":cpf", ($cliente->getCpf()));
+        $stmt->bindValue(":telefone", $cliente->getTelefone());
+        $stmt->bindValue(':email', $cliente->getEmail());
+        $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
 
         // execute the query
         if ($stmt->execute()) {
@@ -81,7 +82,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $cliente = null;
 
         $query = "SELECT
-                    nome, cpf, telefone, email
+                   clienteid, nome, cpf, telefone, email,cartaocredito
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -112,7 +113,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
                     clienteid, nome, cpf, telefone, email,cartaocredito
                 FROM
                     " . $this->table_name .
-            " ORDER BY nome ASC";
+            " ORDER BY clienteid";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

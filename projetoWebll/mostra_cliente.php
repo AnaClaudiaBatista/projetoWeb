@@ -1,7 +1,7 @@
 <?php
 include_once "fachada.php";
 include "verifica.php";
-$clienteID = @$_GET["clienteid"];
+$clienteid = @$_GET["clienteid"];
 
 $dao = $factory->getClienteDao();
 $cliente = $dao->buscaPorId($clienteid);
@@ -14,7 +14,7 @@ if($cliente) {
 // layout do cabeçalho
 include_once "teste_layout_header.php";
 if($cliente) {
-echo "<section>";
+echo "<div class ='cadastro'>";
 //dados do usuário
 echo "<h1>ID       : " . $cliente->getclienteid() . "</h1>";
 echo "<p> Nome     : " . $cliente->getNome() . "</p>";
@@ -26,7 +26,7 @@ echo "<p> Email    : " . $cliente->getEmail() . "</p>";
 echo "<a href='consultaClientes.php' class='btn btn-primary left-margin'>";
 echo "Voltar";
 echo "</a>";
-echo "</section>";
+echo "</div>";
 }
 // layout do rodapé
 include_once "teste_layout_footer.php";

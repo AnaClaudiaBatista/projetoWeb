@@ -36,3 +36,4 @@ class Cliente{
     public function getCartaocredito() { return $this->cartaocredito; }
     public function setCartaocredito($cartaocredito) {$this->cartaocredito = $cartaocredito;}
 }
+?>

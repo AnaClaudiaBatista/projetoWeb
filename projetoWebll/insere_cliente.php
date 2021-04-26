@@ -14,3 +14,5 @@ $dao->insere($cliente);
 
 header("Location: consultaCLientes.php");
 exit;
+
+?>
