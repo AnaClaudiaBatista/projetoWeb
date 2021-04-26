@@ -6,6 +6,7 @@ include_once('model/Cliente.php');
 include_once('dao/ClienteDao.php');
 include_once('model/Fornecedor.php');
 include_once('dao/FornecedorDao.php');
+
 include_once('dao/DaoFactory.php');
 include_once('dao/PostgresDaoFactory.php');
 

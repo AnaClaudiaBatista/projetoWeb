@@ -21,7 +21,7 @@
 	<header>
 		
 		<div class="pull-right" id="login_info">
-            <h2>Logo Aqui</h2>
+            <h2>...</h2>
 		<?php	
 		include_once "comum.php";
 		

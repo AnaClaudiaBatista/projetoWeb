@@ -2,7 +2,7 @@
 // Métodos de acesso ao banco de dados 
 require "fachada.php"; 
  
-// Inicia sessão    
+// Inicia sessão 
 session_start();
 
 // Recupera o login 
@@ -15,7 +15,7 @@ $senha = isset($_POST["senha"]) ? md5(trim($_POST["senha"])) : FALSE;
 if(!$login || !$senha) 
 { 
     echo "Você deve digitar sua senha e login!<br>"; 
-    echo "<a href='inicio.php'>Efetuar Login</a>";
+    echo "<a href='login.php'>Efetuar Login</a>";
     exit; 
 }  
 
@@ -41,7 +41,7 @@ if($usuario) {
 }
 
 if($problemas==TRUE) {
-    header("Location: ..ini.php"); 
+    header("Location: inicio.php"); 
     exit; 
 }
 ?>

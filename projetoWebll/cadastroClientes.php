@@ -2,7 +2,7 @@
 include_once "teste_layout_header.php";
 ?>
  
-  <form action="insere_cliente.php" method="get"> 
+  <form method="POST" action="insere_cliente.php"> 
   <div class="cadastro">  
       <h2>Cadastro de Clientes</h2>
       <div class="row">
@@ -62,7 +62,7 @@ include_once "teste_layout_header.php";
         </div>
       </div> 
        <button type="submit" class="btn btn-primary">Cadastrar</button> 
-       </div>
+    </div>
   </form>
   
   

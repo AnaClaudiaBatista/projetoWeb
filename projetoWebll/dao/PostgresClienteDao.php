@@ -7,7 +7,8 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 {
     private $table_name = 'cliente';
 
-    public function insere($cliente) {
+    public function insere($cliente)
+    {
 
         $query = "INSERT INTO " . $this->table_name .
             " ( nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
@@ -15,11 +16,11 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
         $stmt = $this->conn->prepare($query);
 
-         // bindValue || bindParam
-        $stmt->bindValue(":nome", $cliente->getNome());
-        $stmt->bindValue(":cpf", $cliente->getCpf());
-        $stmt->bindValue(":telefone", $cliente->getTelefone());
-        $stmt->bindValue(":email", $cliente->getEmail());
+        // bindValue || bindParam
+        $stmt->bindValue (":nome", $cliente->getNome());
+        $stmt->bindValue (":cpf", $cliente->getCpf());
+        $stmt->bindValue (":telefone", $cliente->getTelefone());
+        $stmt->bindValue (":email", $cliente->getEmail());
         $stmt->bindValue(":cartaocredito", $cliente->getCartaocredito());
         //ver como inserir o endereco
 
@@ -38,7 +39,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $stmt = $this->conn->prepare($query);
 
         // bind parameters
-        $stmt->bindValue(':clienteid', $clienteid);
+        $stmt->bindParam(':clienteid', $clienteid);
 
         // execute the query
         if ($stmt->execute()) {
