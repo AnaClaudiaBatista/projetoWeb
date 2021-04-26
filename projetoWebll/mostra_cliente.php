@@ -15,7 +15,7 @@ if($cliente) {
 include_once "teste_layout_header.php";
 if($cliente) {
 echo "<div class ='cadastro'>";
-//dados do usuário
+//dados do cliente
 echo "<h1>ID       : " . $cliente->getclienteid() . "</h1>";
 echo "<p> Nome     : " . $cliente->getNome() . "</p>";
 echo "<p> CPF 	   : " . $cliente->getCpf() . "</p>";

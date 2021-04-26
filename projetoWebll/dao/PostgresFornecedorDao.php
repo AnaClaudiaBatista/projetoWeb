@@ -10,19 +10,18 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
 
     public function insere($fornecedor)
     {
-
         $query = "INSERT INTO " . $this->table_name .
-            " ( nome,  cnpj, descricao,  telefone, email) VALUES" .
-            " (:nome, :cnpj,:descricao, :telefone,:email)";
+            " ( nome,  cnpj,  descricao,  telefone, email) VALUES" .
+            " (:nome, :cnpj, :descricao, :telefone,:email)";
 
         $stmt = $this->conn->prepare($query);
 
         // bind values bindParam || bindValue 
         $stmt->bindValue(":nome", $fornecedor->getNome());
         $stmt->bindValue(":cnpj", $fornecedor->getCnpj());
-        $stmt->bindValue(":descricao", $fornecedor->getDescricao());
         $stmt->bindValue(":telefone", $fornecedor->getTelefone());
         $stmt->bindValue(":email", $fornecedor->getEmail());
+        $stmt->bindValue(":descricao", $fornecedor->getDescricao());
         /*ver como inserir o endereco*/
 
         if ($stmt->execute()) {
@@ -54,21 +53,22 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
         return removePorId($fornecedor->getCNPJ());
     }*/
 
-    public function altera(&$fornecedor)
+    public function altera($fornecedor)
     {
 
         $query = "UPDATE " . $this->table_name .
-            " SET nome = :nome, cnpj = :cnpj, descricao = :descricao, telefone = :telefone, email = :email" .
+            " SET nome = :nome, cnpj = :cnpj, telefone = :telefone, email = :email, descricao = :descricao" .
             " WHERE fonecedorid = :fornecedorid";
 
         $stmt = $this->conn->prepare($query);
 
         // bind parameters
         $stmt->bindParam(":nome", $fornecedor->getNome());
-        $stmt->bindParam(":cnpj", ($fornecedor->getCnpj()));
-        $stmt->bindParam(":descricao", ($fornecedor->getDescricao()));
+        $stmt->bindParam(":cnpj", ($fornecedor->getCnpj()));        
         $stmt->bindParam(":telefone", $fornecedor->getTelefone());
         $stmt->bindParam(':email', $fornecedor->getEmail());
+        $stmt->bindParam(":descricao", $fornecedor->getDescricao());
+        $stmt->bindValue(':fornecedorid', $fornecedor->getFornecedorid());
 
         // execute the query
         if ($stmt->execute()) {
@@ -84,7 +84,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
         $fornecedor = null;
 
         $query = "SELECT
-                    nome, cnpj,descricao, telefone, email
+                    fornecedorid, nome, cnpj, telefone, email, descricao
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -98,7 +98,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $fornecedor = new Fornecedor($row['fornecedorid'], $row['nome'], $row['cnpj'], $row['descricao'], $row['telefone'], $row['email']);
+            $fornecedor = new Fornecedor($row['fornecedorid'], $row['nome'], $row['cnpj'], $row['telefone'], $row['email'], $row['descricao']);
         }
 
         return $fornecedor;

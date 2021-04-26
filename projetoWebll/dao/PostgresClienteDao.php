@@ -11,24 +11,31 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
     {
 
         $query = "INSERT INTO " . $this->table_name .
-            " ( nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
-            " (:nome, :cpf, :telefone, :email, :cartaocredito)";
+            " (  nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
+            " ( :nome, :cpf, :telefone, :email, :cartaocredito)";
 
         $stmt = $this->conn->prepare($query);
 
         // bindValue || bindParam
         $stmt->bindValue(":nome", $cliente->getNome());
-        $stmt->bindValue(":cpf", $cliente->getCpf());
+        $stmt->bindValue(":cpf", ($cliente->getCpf()));
         $stmt->bindValue(":telefone", $cliente->getTelefone());
-        $stmt->bindValue(":email", $cliente->getEmail());
-        $stmt->bindValue(":cartaocredito", $cliente->getCartaocredito());
+        $stmt->bindValue(':email', $cliente->getEmail());
+        $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
         //ver como inserir o endereco
+        // execute the query
+        if ($stmt->execute()) {
+            return true;
+        }
 
+        return false;
+
+        /*
         if ($stmt->execute()) {
             return true;
         } else {
             return false;
-        }
+        }*/
     }
 
     public function removePorId($clienteid)
@@ -53,7 +60,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         return removePorId($cliente->getCPF());
     }*/
 
-    public function altera(&$cliente)
+    public function altera($cliente)
     {
 
         $query = "UPDATE " . $this->table_name .

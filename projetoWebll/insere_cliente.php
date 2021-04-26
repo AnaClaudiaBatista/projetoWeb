@@ -1,15 +1,15 @@
 <?php
 include_once "fachada.php";
 
- $nome          = @$_GET['nome'];
- $cpf           = @$_GET['cpf'];
- $telefone      = @$_GET['telefone'];
- $email         = @$_GET['email'];
- $cartaocredito = @$_GET['cartaocredito'];
+$clienteid     = @$_GET["clienteid"]; 
+$nome          = @$_GET["nome"];
+$cpf           = @$_GET["cpf"];
+$telefone      = @$_GET["telefone"];
+$email         = @$_GET["email"];
+$cartaocredito = @$_GET["cartaocredito"];
 
 
-
-$cliente = new Cliente(null,$nome, $cpf, $telefone, $email, $cartaocredito);
+$cliente = new Cliente($clienteid,$nome,$cpf,$telefone,$email,$cartaocredito);
 $dao = $factory->getClienteDao();
 $dao->insere($cliente);
 
