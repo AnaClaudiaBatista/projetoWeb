@@ -17,10 +17,10 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $stmt = $this->conn->prepare($query);
 
         // bindValue || bindParam
-        $stmt->bindValue (":nome", $cliente->getNome());
-        $stmt->bindValue (":cpf", $cliente->getCpf());
-        $stmt->bindValue (":telefone", $cliente->getTelefone());
-        $stmt->bindValue (":email", $cliente->getEmail());
+        $stmt->bindValue(":nome", $cliente->getNome());
+        $stmt->bindValue(":cpf", $cliente->getCpf());
+        $stmt->bindValue(":telefone", $cliente->getTelefone());
+        $stmt->bindValue(":email", $cliente->getEmail());
         $stmt->bindValue(":cartaocredito", $cliente->getCartaocredito());
         //ver como inserir o endereco
 
@@ -53,11 +53,11 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         return removePorId($cliente->getCPF());
     }*/
 
-    public function altera($cliente)
+    public function altera(&$cliente)
     {
 
         $query = "UPDATE " . $this->table_name .
-            " SET nome = :nome, cpf = :cpf, telefone = :telefone, email = :email" .
+            " SET nome = :nome, cpf = :cpf, telefone = :telefone, email = :email, cartaocredito= :cartaocredito" .
             " WHERE clienteid = :clienteid";
 
         $stmt = $this->conn->prepare($query);
@@ -68,6 +68,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $stmt->bindValue(":telefone", $cliente->getTelefone());
         $stmt->bindValue(':email', $cliente->getEmail());
         $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
+        $stmt->bindValue(':clienteid', $cliente->getClienteid());
 
         // execute the query
         if ($stmt->execute()) {

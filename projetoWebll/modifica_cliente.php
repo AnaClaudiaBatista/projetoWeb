@@ -66,14 +66,14 @@ $cliente = $dao->buscaPorId($clienteid);
         </div>
         <div class="form-group col-md-3">
           <label>CEP</label>
-          <input type="text" class="form-control" name='cpf' placeholder="CEP">
+          <input type="text" class="form-control" name='cep' placeholder="CEP">
         </div>
       </div>
 
         <div>
             <div>
                 <button type="submit" class="btn btn-success">Alterar</button>
-                <a href='consutaClientes.php' class='btn btn-danger left-margin'>Cancela</a>
+                <a href='consultaClientes.php' class='btn btn-danger left-margin'>Cancela</a>
             </div>
         </div>
 

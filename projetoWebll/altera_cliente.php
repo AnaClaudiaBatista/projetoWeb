@@ -12,7 +12,7 @@ $cliente = new Cliente($clienteid,$nome,$cpf,$telefone,$email,$cartaocredito);
 $dao = $factory->getClienteDao();
 $dao->altera($cliente);
 
-header("Location: consultaClientes.php");  
+//header("Location: consultaClientes.php");  
 exit;
 
 ?>
