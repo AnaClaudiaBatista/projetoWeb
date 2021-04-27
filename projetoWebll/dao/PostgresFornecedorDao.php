@@ -3,26 +3,32 @@
 include_once('FornecedorDao.php');
 include_once('PostgresDao.php');
 
-class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
-{
+class PostgresFornecedorDao extends PostgresDao implements FornecedorDao{
 
     private $table_name = 'fornecedor';
 
     public function insere($fornecedor)
     {
         $query = "INSERT INTO " . $this->table_name .
-            " ( nome,  cnpj,  descricao,  telefone, email) VALUES" .
-            " (:nome, :cnpj, :descricao, :telefone,:email)";
+            " (  nome,  cnpj,  telefone,  email,  descricao) VALUES" .
+            " ( :nome, :cnpj, :telefone, :email, :descricao)";
 
         $stmt = $this->conn->prepare($query);
 
-        // bind values bindParam || bindValue 
-        $stmt->bindValue(":nome", $fornecedor->getNome());
-        $stmt->bindValue(":cnpj", $fornecedor->getCnpj());
-        $stmt->bindValue(":telefone", $fornecedor->getTelefone());
-        $stmt->bindValue(":email", $fornecedor->getEmail());
-        $stmt->bindValue(":descricao", $fornecedor->getDescricao());
-        /*ver como inserir o endereco*/
+
+        $nome          = $fornecedor->getNome();
+        $cnpj          = $fornecedor->getCnpj();
+        $telefone      = $fornecedor->getTelefone();
+        $email         = $fornecedor->getEmail();
+        $descricao     = $fornecedor->getDescricao();
+
+        // bindValue || bindParam
+        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":cnpj", $cnpj);
+        $stmt->bindValue(":telefone", $telefone);
+        $stmt->bindValue(":email", $email);
+        $stmt->bindValue(":descricao", $descricao);
+
 
         if ($stmt->execute()) {
             return true;
@@ -57,25 +63,33 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
     {
 
         $query = "UPDATE " . $this->table_name .
-            " SET nome = :nome, cnpj = :cnpj, telefone = :telefone, email = :email, descricao = :descricao" .
-            " WHERE fonecedorid = :fornecedorid";
+            " SET nome = :nome, cnpj = :cnpj, telefone = :telefone, email = :email, descricao= :descricao" .
+            " WHERE fornecedorid = :fornecedorid";
 
         $stmt = $this->conn->prepare($query);
 
-        // bind parameters
-        $stmt->bindParam(":nome", $fornecedor->getNome());
-        $stmt->bindParam(":cnpj", ($fornecedor->getCnpj()));        
-        $stmt->bindParam(":telefone", $fornecedor->getTelefone());
-        $stmt->bindParam(':email', $fornecedor->getEmail());
-        $stmt->bindParam(":descricao", $fornecedor->getDescricao());
-        $stmt->bindValue(':fornecedorid', $fornecedor->getFornecedorid());
+      /*  $nome          = $fornecedor->getNome();
+        $cnpj          = $fornecedor->getCnpj();
+        $telefone      = $fornecedor->getTelefone();
+        $email         = $fornecedor->getEmail();
+        $descricao     = $fornecedor->getDescricao();
+        $fornecedorid  = $fornecedor->getFornecedorid();
+*/
 
-        // execute the query
-        if ($stmt->execute()) {
+        // bindValue || bindParam
+        $stmt->bindValue(":nome", $fornecedor->getNome());
+        $stmt->bindValue(":cnpj", $fornecedor->getCnpj());
+        $stmt->bindValue(":telefone", $fornecedor->getTelefone());
+        $stmt->bindValue(":email", $fornecedor->getEmail());
+        $stmt->bindValue(":descricao", $fornecedor->getDescricao());
+        $stmt->bindValue(":fornecedorid", $fornecedor->getFornecedorid());
+
+         // execute the query
+         if ($stmt->execute()) {
             return true;
+        }else{
+            return false;
         }
-
-        return false;
     }
 
     public function buscaPorId($fornecedorid)
@@ -122,7 +136,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $fornecedores[] = new Fornecedor($fornecedorid, $nome, $cnpj, $descricao, $telefone, $email);
+            $fornecedores[] = new Fornecedor($fornecedorid, $nome, $cnpj, $telefone, $email, $descricao);
         }
 
         return $fornecedores;

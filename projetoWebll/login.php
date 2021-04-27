@@ -4,8 +4,8 @@ $page_title = "Demo : Autenticação Obrigatória";
 // layout do cabeçalho
 include_once "teste_layout_header.php";
 ?>
-<section>
-<form action="executa_login.php" method="POST" role="form">
+
+<form class="col-md-10 offset-md-11" action="executa_login.php" method="POST" role="form">
     <legend>Informe seu login e sua senha para entrar</legend>
 
     <div class="form-group">
@@ -14,6 +14,7 @@ include_once "teste_layout_header.php";
         <label for="senha">Senha</label>
         <input type="password" class="form-control" id="senha" name="senha" placeholder="Informe a senha">
     </div>
-    <button type="submit" class="btn btn-primary">OK</button>
+    <button type="submit" class="btn btn-primary">Entrar</button>
 </form>
-</section>
+
+

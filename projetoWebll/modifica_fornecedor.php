@@ -10,7 +10,7 @@ $fornecedor = $dao->buscaPorId($fornecedorid);
 ?>
 
 <body>
-  <form action="altera_fornecedor.php" method="get">
+  <form action="altera_fornecedor.php" method="GET">
     <div class="cadastro">
       <h2>Cadastro de Fornecedores</h2>
       <div class="row">

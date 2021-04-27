@@ -3,48 +3,40 @@
 include_once('ClienteDao.php');
 include_once('PostgresDao.php');
 
-class PostgresClienteDao extends PostgresDao implements ClienteDao
-{
+class PostgresClienteDao extends PostgresDao implements ClienteDao {
+
     private $table_name = 'cliente';
 
-    public function insere($cliente)
-    {
+    public function insere($cliente) {
+        
        $query = "INSERT INTO " . $this->table_name .
             " (  nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
             " ( :nome, :cpf, :telefone, :email, :cartaocredito)";
 
         $stmt = $this->conn->prepare($query);
 
+
+        $nome          = $cliente->getNome();
+        $cpf           = $cliente->getCpf();
+        $telefone      = $cliente->getTelefone();
+        $email         = $cliente->getEmail();
+        $cartaocredito = $cliente->getCartaocredito();
+
         // bindValue || bindParam
-        $stmt->bindValue(":nome", $cliente->getNome());
-        $stmt->bindValue(":cpf", $cliente->getCpf());
-        $stmt->bindValue(":telefone", $cliente->getTelefone());
-        $stmt->bindValue(':email', $cliente->getEmail());
-        $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
-        $stmt ->execute();
+        $stmt->bindValue(":nome", $nome);
+        $stmt->bindValue(":cpf",$cpf);
+        $stmt->bindValue(":telefone", $telefone); 
+        $stmt->bindValue(":email", $email);
+        $stmt->bindValue(":cartaocredito", $cartaocredito);   
 
-        $count = $stmt->rowCount();
-
-        if($count>0){
-            //echo "Dados cadastrados com sucesso!";
-          
-            echo '<div class="alert alert-sucess">
-              <strong>Sucesso!</strong> avaliação cadastrada.
-               </div>';
-               $clienteid = null;
-               $nome = null;
-               $cpf = null;
-               $email = null;
-               $cartaocredito = null;
-        }else{
-          echo '<div class="alert alert-danger">
-              <strong>Erro ao cadastrar!</strong> Não foi possível cadastrar a avaliação.
-              </div>';
-}
-        
-            
        
-    }
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
+
+}    
 
     public function removePorId($clienteid)
     {
@@ -81,20 +73,21 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
         $stmt->bindValue(":nome", $cliente->getNome());
         $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":telefone", $cliente->getTelefone());
-        $stmt->bindValue(':email', $cliente->getEmail());
-        $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
-        $stmt->bindValue(':clienteid', $cliente->getClienteid());
+        $stmt->bindValue(":email", $cliente->getEmail());
+        $stmt->bindValue(":cartaocredito", $cliente->getCartaocredito());
+        $stmt->bindValue(":clienteid", $cliente->getClienteid());
 
         // execute the query
         if ($stmt->execute()) {
             return true;
+        }else{
+            return false;
         }
 
-        return false;
+        
     }
 
-    public function buscaPorId($clienteid)
-    {  //busca por cpf
+    public function buscaPorId($clienteid){  
 
         $cliente = null;
 
@@ -121,8 +114,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
 
 
-    public function buscaTodos()
-    {
+    public function buscaTodos()    {
 
         $clientes = array();
 

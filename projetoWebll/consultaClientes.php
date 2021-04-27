@@ -17,12 +17,10 @@ if ($clientes) {
 
 	echo "<table class='table table-hover table-responsive table-bordered'>";
 	echo "<tr>";
-	echo "<th>clienteid</th>";
+	echo "<th>ID Cliente</th>";
 	echo "<th>nome</th>";
-	echo "<th>cpf</th>";
-	echo "<th>telefone</th>";
-	//echo "<th>Email</th>";
-	//echo "<th>cartaoCredito</th>";
+	echo "<th>CPF</th>";
+	echo "<th>Telefone</th>";
 	echo "</tr>";
 
 	foreach ($clientes as $cliente) {

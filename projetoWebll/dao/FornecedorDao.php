@@ -3,9 +3,9 @@ interface FornecedorDao {
 
     public function insere($fornecedor);
     //public function remove($fornecedor);
-    public function removePorId($id);
+    public function removePorId($fornecedorid);
     public function altera($fornecedor);
-    public function buscaPorId($id);
+    public function buscaPorId($fornecedorid);
     public function buscaTodos();
 }
 ?>

@@ -7,14 +7,15 @@ class Fornecedor{
     private $telefone;
     private $email;
     private $descricao;
+
     public function __construct($fornecedorid, $nome, $cnpj, $telefone, $email,$descricao)
     {
-        $this->fornecedorid=$fornecedorid;
-        $this->nome=$nome;
-        $this->cnpj=$cnpj;        
-        $this->telefone=$telefone;
-        $this->email=$email;
-        $this->descricao=$descricao;
+        $this->fornecedorid  =$fornecedorid;
+        $this->nome          =$nome;
+        $this->cnpj          =$cnpj;        
+        $this->telefone      =$telefone;
+        $this->email         =$email;
+        $this->descricao     =$descricao;
         
     }
 

@@ -14,7 +14,7 @@ if($cliente) {
 // layout do cabeçalho
 include_once "teste_layout_header.php";
 if($cliente) {
-echo "<div class ='cadastro'>";
+    echo "<div class ='cadastro'>";
 //dados do cliente
 echo "<h1>ID       : " . $cliente->getclienteid() . "</h1>";
 echo "<p> Nome     : " . $cliente->getNome() . "</p>";

@@ -1,7 +1,7 @@
 <?php
 include_once "fachada.php";
 include "verifica.php";
-$produtoid = @$_GET["produtoid"];
+$produtoid = @$_POST["produtoid"];
 
 $dao = $factory->getProdutoDao();
 $produto = $dao->buscaPorId($produtoid);
@@ -16,10 +16,10 @@ include_once "teste_layout_header.php";
 if($produto) {
 	echo "<div class ='cadastro'>";
 //dados do produto
-echo "<h1>ID       : " . $produto->getprodutoid() . "</h1>";
+echo "<h1>ID       : " . $produto->getProdutoid() . "</h1>";
 echo "<p> Nome     : " . $produto->getNome() . "</p>";
 echo "<p> Descricao: " . $produto->getDescricao() . "</p>";
-echo "<p> Foto     : " . $produto->getFoto() . "</p>";
+//echo "<p> Foto     : " . $produto->getFoto() . "</p>";
 
 // botão voltar
 echo "<a href='consultaProduto.php' class='btn btn-primary left-margin'>";

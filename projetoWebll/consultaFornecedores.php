@@ -21,8 +21,6 @@ if ($fornecedores) {
 	echo "<th>Nome</th>";
 	echo "<th>CNPJ</th>";
 	echo "<th>Telefone</th>";
-	//echo "<th>Email</th>";
-	//echo "<th>Descricao</th>";
 	echo "</tr>";
 
 	foreach ($fornecedores as $fornecedor) {
@@ -32,12 +30,10 @@ if ($fornecedores) {
 		echo "<td>{$fornecedor->getNome()}</td>";
 		echo "<td>{$fornecedor->getCnpj()}</td>";
 		echo "<td>{$fornecedor->getTelefone()}</td>";
-		//echo "<td>{$fornecedor->getEmail()}</td>";
-		//echo "<td>{$fornecedor->getDescricao()}</td>";
 		echo "<td>";
 
 		// botão para remover um usuário
-		echo "<a href='remove_fornecedor.php?id={$fornecedor->getFornecedorid()}' class='btn btn-danger left-margin'";
+		echo "<a href='remove_fornecedor.php?fornecedorid={$fornecedor->getFornecedorid()}' class='btn btn-danger left-margin'";
 		echo "onclick=\"return confirm('Tem certeza que quer excluir?')\">";
 		echo "<span class='glyphicon glyphicon-remove'></span> Exclui";
 		echo "</a>";
