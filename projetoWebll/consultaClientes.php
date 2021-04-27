@@ -34,12 +34,7 @@ if ($clientes) {
 		echo "<td>{$cliente->getTelefone()}</td>";
 		//echo "<td>{$cliente->getEmail()}</td>";
 		//	echo "<td>{$cliente->getCartaocredito()}</td>";
-		echo "<td>";
-		//botão para alterar um usuário
-		/*echo "<a href='modifica_usuario.php?id={$cliente->getClienteid()}' class='btn btn-info left-margin'>";
-				echo "<span class='glyphicon glyphicon-edit'></span> Altera";
-				echo "</a>";*/
-		// botão para remover um usuário
+		echo "<td>";		
 		echo "<a href='remove_cliente.php?clienteid={$cliente->getClienteid()}' class='btn btn-danger left-margin'";
 		echo "onclick=\"return confirm('Tem certeza que quer excluir?')\">";
 		echo "<span class='glyphicon glyphicon-remove'></span> Exclui";

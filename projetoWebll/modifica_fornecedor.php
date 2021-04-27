@@ -6,7 +6,7 @@ include_once "teste_layout_header.php";
 $fornecedorid = @$_GET["fornecedorid"];
 
 $dao = $factory->getFornecedorDao();
-$fornecedorid = $dao->buscaPorId($fornecedorid);
+$fornecedor = $dao->buscaPorId($fornecedorid);
 ?>
 
 <body>
@@ -20,11 +20,11 @@ $fornecedorid = $dao->buscaPorId($fornecedorid);
         </div>
         <div class="form-group col-md-6">
           <label>CNPJ</label>
-          <input type="text" class="form-control" name='cnpj' value='<?php echo $fornecedor->getCnpj();?>' placeholder="000.000.000-00">
+          <input type="text" class="form-control" name='cnpj' value='<?php echo $fornecedor->getCnpj();?>' placeholder="00.000.000/0000-00">
         </div>
         <div class="form-group col-md-6">
           <label>Telefone</label>
-          <input type="tel" class="form-control"  name='telefone' value='<?php echo $fornecedor->getTelefone();?>' placeholder="(XX)XXXX-XXXX">
+          <input type="text" class="form-control"  name='telefone' value='<?php echo $fornecedor->getTelefone();?>' placeholder="(XX)XXXX-XXXX">
         </div>
         <div class="form-group col-md-6">
           <label>Email</label>
@@ -33,7 +33,7 @@ $fornecedorid = $dao->buscaPorId($fornecedorid);
 
         <div class="form-group col-md-6">
           <label>Descrição</label>
-          <input type="text" class="form-control" name='descricao' value='<?php echo $fornecedor->getDescricao();?>' placeholder="Numero do Cartao">
+          <input type="text" class="form-control" name='descricao' value='<?php echo $fornecedor->getDescricao();?>' placeholder="Descrição">
         </div>
       </div>
 
@@ -73,7 +73,7 @@ $fornecedorid = $dao->buscaPorId($fornecedorid);
         <div>
             <div>
                 <button type="submit" class="btn btn-success">Alterar</button>
-                <a href='consultaFornecedores.php' class='btn btn-danger left-margin'>Cancela</a>
+                <a href='consultaFornecedores.php' class='btn btn-danger left-margin'>Cancelar</a>
             </div>
         </div>
 

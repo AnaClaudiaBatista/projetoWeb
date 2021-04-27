@@ -9,8 +9,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
     public function insere($cliente)
     {
-
-        $query = "INSERT INTO " . $this->table_name .
+       $query = "INSERT INTO " . $this->table_name .
             " (  nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
             " ( :nome, :cpf, :telefone, :email, :cartaocredito)";
 
@@ -18,24 +17,33 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
         // bindValue || bindParam
         $stmt->bindValue(":nome", $cliente->getNome());
-        $stmt->bindValue(":cpf", ($cliente->getCpf()));
+        $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":telefone", $cliente->getTelefone());
         $stmt->bindValue(':email', $cliente->getEmail());
         $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
-        //ver como inserir o endereco
-        // execute the query
-        if ($stmt->execute()) {
-            return true;
-        }
+        $stmt ->execute();
 
-        return false;
+        $count = $stmt->rowCount();
 
-        /*
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }*/
+        if($count>0){
+            //echo "Dados cadastrados com sucesso!";
+          
+            echo '<div class="alert alert-sucess">
+              <strong>Sucesso!</strong> avaliação cadastrada.
+               </div>';
+               $clienteid = null;
+               $nome = null;
+               $cpf = null;
+               $email = null;
+               $cartaocredito = null;
+        }else{
+          echo '<div class="alert alert-danger">
+              <strong>Erro ao cadastrar!</strong> Não foi possível cadastrar a avaliação.
+              </div>';
+}
+        
+            
+       
     }
 
     public function removePorId($clienteid)
@@ -71,7 +79,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao
 
         // bindValue || bindParam
         $stmt->bindValue(":nome", $cliente->getNome());
-        $stmt->bindValue(":cpf", ($cliente->getCpf()));
+        $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":telefone", $cliente->getTelefone());
         $stmt->bindValue(':email', $cliente->getEmail());
         $stmt->bindValue(':cartaocredito', $cliente->getCartaocredito());
