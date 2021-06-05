@@ -1,5 +1,4 @@
 body {
-    background-color: rgb(219, 219, 219);
     font-family: sans-serif;
     font-size: 100%;
     color: #fff
@@ -10,6 +9,8 @@ body {
     margin-top: 20px;
 }
 
+
+/*
 nav {
     margin-left: 1px;
     width: 300px;
@@ -18,11 +19,11 @@ nav {
     box-sizing: border-box;
     float: left;
     padding-top: 10px;
-}
+}*/
 
-ul .menu {
-    list-style-type: none;
-}
+
+/*
+
 
 ul.menu li {
     width: 250px;
@@ -37,8 +38,16 @@ ul.menu li {
     list-style: none;
 }
 
-ul.menu li:hover {
-    background-color: rgb(48, 48, 48);
+
+*/
+
+.navegacao {
+    box-shadow: 1px 2px #54542c;
+    text-align: center;
+}
+
+.nav-menu>li {
+    padding: 0 0 0 30px;
 }
 
 .cadastro {
@@ -47,10 +56,70 @@ ul.menu li:hover {
     font-family: Georgia, 'Times New Roman', Times, serif;
     border-radius: 5px;
     background-color: white;
-    width: 900px;
+    width: auto;
     height: auto;
-    margin: 15px;
+    margin: 85px 0 0 280px;
     box-sizing: border-box;
     padding: 15px;
-    float: left;
+}
+
+.bg-top-lower {
+    width: 100%;
+    margin: 10px 0 50px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 20px 100px
+}
+
+
+/*
+.sub-category {
+    cursor: pointer;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}*/
+
+.menu ul li {
+    cursor: pointer;
+    background-color: #ffffff;
+    width: 150px;
+    height: 20px;
+    text-align: center;
+    display: inline-block;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.menu ul li a:hover,
+.menu ul li a:focus {
+    background-color: rgba(150, 147, 147, 0.4)
+}
+
+.menu ul li a {
+    padding: 7px;
+    display: block;
+    color: rgb(8, 8, 8)
+}
+
+.menu ul {
+    padding: 0px;
+}
+
+.menu ul ul {
+    display: none;
+}
+
+.menu ul li:hover>ul {
+    display: block;
+}
+
+.menu ul ul li:hover {
+    background-color: rgb(54, 54, 54);
+}
+
+.menu a {
+    color: black;
+    text-decoration: none;
 }

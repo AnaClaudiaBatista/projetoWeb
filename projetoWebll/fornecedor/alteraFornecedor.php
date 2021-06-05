@@ -1,5 +1,5 @@
 <?php
-include_once "fachada.php"; 
+include_once "../fachada.php"; 
 
 $fornecedorid   = @$_GET["fornecedorid"]; 
 $nome           = @$_GET["nome"];

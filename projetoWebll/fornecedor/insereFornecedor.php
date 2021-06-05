@@ -1,5 +1,5 @@
 <?php
-include_once "fachada.php";
+include_once "../fachada.php";
 
 $fornecedorid  = @$_GET["fornecedorid"]; 
 $nome          = @$_GET["nome"];
@@ -13,5 +13,5 @@ $fornecedor = new Fornecedor($fornecedorid, $nome, $cnpj, $telefone, $email, $de
 $dao = $factory->getFornecedorDao();
 $dao->insere($fornecedor);
 
-header("Location: consultaFornecedores.php");
+header("Location: consultaFornecedor.php");
 exit;

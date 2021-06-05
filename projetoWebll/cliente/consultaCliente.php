@@ -1,7 +1,7 @@
 <?php
-include "verifica.php";
-include_once "fachada.php";
-include_once "teste_layout_header.php";
+include "../verifica.php";
+include_once "../fachada.php";
+include_once "../home/teste_layout_header.php";
 
 echo "<div class='cadastro'>";
 
@@ -25,7 +25,7 @@ if ($clientes) {
 
 	foreach ($clientes as $cliente) {
 
-		echo "<tr onclick=location.href='modifica_cliente.php?clienteid={$cliente->getClienteid()}'>";
+		echo "<tr onclick=location.href='modificaCliente.php?clienteid={$cliente->getClienteid()}'>";
 		echo "<td>{$cliente->getClienteid()}</td>";
 		echo "<td>{$cliente->getNome()}</td>";
 		echo "<td>{$cliente->getCpf()}</td>";
@@ -33,7 +33,7 @@ if ($clientes) {
 		//echo "<td>{$cliente->getEmail()}</td>";
 		//	echo "<td>{$cliente->getCartaocredito()}</td>";
 		echo "<td>";		
-		echo "<a href='remove_cliente.php?clienteid={$cliente->getClienteid()}' class='btn btn-danger left-margin'";
+		echo "<a href='removeCliente.php?clienteid={$cliente->getClienteid()}' class='btn btn-danger left-margin'";
 		echo "onclick=\"return confirm('Tem certeza que quer excluir?')\">";
 		echo "<span class='glyphicon glyphicon-remove'></span> Exclui";
 		echo "</a>";
@@ -43,11 +43,11 @@ if ($clientes) {
 	echo "</table>";
 }
 
-echo "<a href='cadastroClientes.php' class='btn btn-primary left-margin'>";
+echo "<a href='cadastroCliente.php' class='btn btn-primary left-margin'>";
 echo "Novo";
 echo "</a>";
 
 echo "</div>";
 
 // layout do rodapé
-include_once "teste_layout_footer.php";
+include_once "../home/teste_layout_footer.php";

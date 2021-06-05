@@ -15,7 +15,7 @@ $senha = isset($_POST["senha"]) ? md5(trim($_POST["senha"])) : FALSE;
 if(!$login || !$senha) 
 { 
     echo "Você deve digitar sua senha e login!<br>"; 
-    echo "<a href='login.php'>Efetuar Login</a>";
+    echo "<a href='home/login.php'>Efetuar Login</a>";
     exit; 
 }  
 
@@ -31,7 +31,7 @@ if($usuario) {
         $_SESSION["id_usuario"]= $usuario->getId(); 
         $_SESSION["nome_usuario"] = stripslashes($usuario->getNome()); 
         //$_SESSION["permissao"]= $dados["postar"]; 
-        header("Location: inicio.php"); 
+        header("Location: home/inicio.php"); 
         exit; 
     } else {
         $problemas = TRUE; 
@@ -41,7 +41,7 @@ if($usuario) {
 }
 
 if($problemas==TRUE) {
-    header("Location: inicio.php"); 
+    header("Location: home/inicio.php"); 
     exit; 
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
-include "verifica.php";
-include_once "fachada.php";
-include_once "teste_layout_header.php";
+include "../verifica.php";
+include_once "../fachada.php";
+include_once "../teste_layout_header.php";
 
 $produtoid = @$_GET["produtoid"];
 
@@ -9,7 +9,7 @@ $dao = $factory->getProdutoDao();
 $produto = $dao->buscaPorId($produtoid);
 ?>
 
-<form action="altera_produto.php" method="GET">
+<form action="alteraProduto.php" method="GET">
   <div class="cadastro">
     <h2>Cadastro de Produtos</h2>
     <div class="row">
@@ -46,5 +46,5 @@ $produto = $dao->buscaPorId($produtoid);
 
 <?php
 
-include_once "teste_layout_footer.php";
+include_once "../teste_layout_footer.php";
 ?>

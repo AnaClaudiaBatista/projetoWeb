@@ -1,5 +1,5 @@
 <?php
-include_once "fachada.php"; 
+include_once "../fachada.php"; 
 
 $produtoid     = @$_GET["produtoid"]; 
 $nome          = @$_GET["nome"];

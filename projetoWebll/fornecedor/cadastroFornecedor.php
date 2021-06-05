@@ -1,8 +1,8 @@
 <?php
-include_once "teste_layout_header.php";
+include_once "../home/teste_layout_header.php";
 ?>
 
-  <form action="insere_fornecedor.php" method="get">
+  <form action="insereFornecedor.php" method="get">
     <div class="cadastro">
       <h2>Cadastro de Fornecedores</h2>
       <div class="row">
@@ -22,7 +22,6 @@ include_once "teste_layout_header.php";
           <label>Email</label>
           <input type="email" class="form-control" name='email' placeholder="email@email.com">
         </div>
-
         <div class="form-group col-md-6">
           <label>Descrição</label>
           <input type="text" class="form-control" name='descricao' placeholder="descricao">
@@ -73,4 +72,4 @@ include_once "teste_layout_header.php";
 
 <?php
 
-  include_once "teste_layout_footer.php"; ?>
+  include_once "../home/teste_layout_footer.php"; ?>

@@ -1,6 +1,6 @@
 <?php
-include_once "fachada.php";
-include "verifica.php";
+include_once "../fachada.php";
+include "../verifica.php";
 $fornecedorid = @$_GET["fornecedorid"];
 
 $dao = $factory->getFornecedorDao();
@@ -12,7 +12,7 @@ if($fornecedor) {
 } 
 
 // layout do cabeçalho
-include_once "teste_layout_header.php";
+include_once "../home/teste_layout_header.php";
 if($fornecedor) {
 	echo "<div class ='cadastro'>";
 //dados do fornecedor
@@ -23,10 +23,10 @@ echo "<p> Telefone : " . $fornecedor->getTelefone() . "</p>";
 echo "<p> Email    : " . $fornecedor->getEmail() . "</p>";
 
 // botão voltar
-echo "<a href='consultaFornecedores.php' class='btn btn-primary left-margin'>";
+echo "<a href='consultaFornecedor.php' class='btn btn-primary left-margin'>";
 echo "Voltar";
 echo "</a>";
 echo "</section>";
 }
 // layout do rodapé
-include_once "teste_layout_footer.php";
+include_once "../home/teste_layout_footer.php";

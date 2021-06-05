@@ -1,6 +1,6 @@
 <?php
-include_once "fachada.php";
-include "verifica.php";
+include_once "../fachada.php";
+include "../verifica.php";
 $produtoid = @$_POST["produtoid"];
 
 $dao = $factory->getProdutoDao();
@@ -12,7 +12,7 @@ if($produto) {
 } 
 
 // layout do cabeçalho
-include_once "teste_layout_header.php";
+include_once "../teste_layout_header.php";
 if($produto) {
 	echo "<div class ='cadastro'>";
 //dados do produto
@@ -28,4 +28,4 @@ echo "</a>";
 echo "</section>";
 }
 // layout do rodapé
-include_once "teste_layout_footer.php";
+include_once "../teste_layout_footer.php";

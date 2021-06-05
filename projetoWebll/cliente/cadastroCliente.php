@@ -1,8 +1,8 @@
   <?php
-  include_once "teste_layout_header.php";
+  include_once "../home/teste_layout_header.php";
   ?>
 
-  <form action="insere_cliente.php" method="POST">
+  <form action="insereCliente.php" method="POST">
     <div class="cadastro">
       <h2>Cadastro de Clientes</h2>
       <div class="row">
@@ -66,5 +66,5 @@
   </form>
 
   <?php
-  include_once "teste_layout_footer.php";
+  include_once "../home/teste_layout_footer.php";
   ?>

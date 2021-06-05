@@ -1,5 +1,5 @@
 <?php
-include_once "fachada.php";
+include_once "../fachada.php";
 
 $clienteid      = @$_GET["clienteid"];
 
@@ -8,7 +8,7 @@ $dao = $factory->getClienteDao();
 $dao->removePorId($clienteid);
 
 
-header("Location: consultaClientes.php");
+header("Location: consultaCliente.php");
 
 
 exit;

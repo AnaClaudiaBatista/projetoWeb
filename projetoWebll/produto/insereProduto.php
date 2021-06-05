@@ -1,15 +1,19 @@
 <?php
-include_once "fachada.php";
+include_once "../fachada.php";
 
-$produtoid      = @$_GET["produtoid"];
+$produtoid     = @$_POST["produtoid"]; 
+$nome          = @$_POST["nome"];
+$descricao     = @$_POST["descricao"];
+$foto          = @$_POST["foto"];
 
-$produto = new Produto($produtoid, null, null, null);
+
+$produto = new Produto($produtoid, $nome, $descricao, null);
 $dao = $factory->getProdutoDao();
-if ($dao->removePorId($produtoid)){
+if ($dao->insere($produto)){
     echo '<div class="alert alert-sucess">
     <strong>Sucesso!</strong> avaliação cadastrada.
      </div>';
-     include_once "consultaCLientes.php";
+     include_once "consultaProduto.php";
     // header("Location: consultaCLientes.php");
 }else{
     echo '<div class="alert alert-danger">
@@ -19,9 +23,7 @@ if ($dao->removePorId($produtoid)){
 
 
 
-header("Location: consultaProduto.php");
-
-
 exit;
 
-?>  
+?>
+

@@ -1,39 +1,39 @@
 <?php
-include "verifica.php";
-include_once "fachada.php";
-include_once "teste_layout_header.php";
+include "../verifica.php";
+include_once "../fachada.php";
+include_once "../home/teste_layout_header.php";
 
-$clienteid = $_GET["clienteid"];
+$fornecedorid = @$_GET["fornecedorid"];
 
-$dao = $factory->getClienteDao();
-$cliente = $dao->buscaPorId($clienteid);
+$dao = $factory->getFornecedorDao();
+$fornecedor = $dao->buscaPorId($fornecedorid);
 ?>
 
 <body>
-  <form action="altera_cliente.php" method="GET">
+  <form action="alteraFornecedor.php" method="GET">
     <div class="cadastro">
-      <h2>Cadastro de Clientes</h2>
+      <h2>Cadastro de Fornecedores</h2>
       <div class="row">
         <div class="form-group">
           <label>Nome</label>
-          <input type="text" class="form-control" name='nome' value='<?php echo $cliente->getNome();?>' placeholder="Nome">
+          <input type="text" class="form-control" name='nome' value='<?php echo $fornecedor->getNome();?>' placeholder="Nome">
         </div>
         <div class="form-group col-md-6">
-          <label>CPF</label>
-          <input type="text" class="form-control" name='cpf' value='<?php echo $cliente->getCpf(); ?>' placeholder="000.000.000-00">
+          <label>CNPJ</label>
+          <input type="text" class="form-control" name='cnpj' value='<?php echo $fornecedor->getCnpj();?>' placeholder="00.000.000/0000-00">
         </div>
         <div class="form-group col-md-6">
           <label>Telefone</label>
-          <input type="tel" class="form-control" name='telefone' value='<?php echo $cliente->getTelefone(); ?>' placeholder="(XX)XXXX-XXXX">
+          <input type="text" class="form-control"  name='telefone' value='<?php echo $fornecedor->getTelefone();?>' placeholder="(XX)XXXX-XXXX">
         </div>
         <div class="form-group col-md-6">
           <label>Email</label>
-          <input type="email" class="form-control" name='email' value='<?php echo $cliente->getEmail(); ?>' placeholder="email@email.com">
+          <input type="email" class="form-control" name='email' value='<?php echo $fornecedor->getEmail();?>' placeholder="email@email.com">
         </div>
 
         <div class="form-group col-md-6">
-          <label>Número do Cartao</label>
-          <input type="text" class="form-control" name='cartaocredito' value='<?php echo $cliente->getCartaocredito(); ?>' placeholder="Numero do Cartao">
+          <label>Descrição</label>
+          <input type="text" class="form-control" name='descricao' value='<?php echo $fornecedor->getDescricao();?>' placeholder="Descrição">
         </div>
       </div>
 
@@ -70,17 +70,17 @@ $cliente = $dao->buscaPorId($clienteid);
         </div>
       </div>
 
-      <div>
         <div>
-          <button type="submit" class="btn btn-success">Alterar</button>
-          <a href='consultaClientes.php' class='btn btn-danger left-margin'>Cancela</a>
+            <div>
+                <button type="submit" class="btn btn-success">Alterar</button>
+                <a href='consultaFornecedores.php' class='btn btn-danger left-margin'>Cancelar</a>
+            </div>
         </div>
-      </div>
 
       <div class="form-group">
-
+        
       </div>
-      <input type='hidden' name='clienteid' value='<?php echo $cliente->getclienteid(); ?>' />
+      <input type='hidden' name='fornecedorid' value='<?php echo $fornecedor->getFornecedorid();?>'/>
     </div>
   </form>
 </body>
@@ -89,4 +89,4 @@ $cliente = $dao->buscaPorId($clienteid);
 
 <?php
 
-include_once "teste_layout_footer.php"; ?>
+include_once "../home/teste_layout_footer.php"; ?>

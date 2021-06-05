@@ -1,5 +1,5 @@
 <?php
-include_once "fachada.php"; 
+include_once "../fachada.php"; 
 
 $clienteid     = @$_GET["clienteid"]; 
 $nome          = @$_GET["nome"];
@@ -12,7 +12,7 @@ $cliente = new Cliente($clienteid,$nome,$cpf,$telefone,$email,$cartaocredito);
 $dao = $factory->getClienteDao();
 $dao->altera($cliente);
 
-header("Location: consultaClientes.php");  
+header("Location: consultaCliente.php");  
 exit;
 
 ?>
