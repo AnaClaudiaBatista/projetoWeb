@@ -5,7 +5,7 @@ include_once('PostgresDao.php');
 
 class PostgresUsuarioDao extends PostgresDao implements UsuarioDao {
 
-    private $table_name = 'usuario';
+    private $table_name = 'Usuario';
     
     public function insere($usuario) {
 
@@ -15,10 +15,15 @@ class PostgresUsuarioDao extends PostgresDao implements UsuarioDao {
 
         $stmt = $this->conn->prepare($query);
 
+        $login       = $usuario->getLogin();  
+        $nome       = $usuario->getNome();        
+        $senha      = $usuario->getSenha();
+
         // bind values 
-        $stmt->bindParam(":login", $usuario->getLogin());
-        $stmt->bindParam(":senha", md5($usuario->getSenha()));
-        $stmt->bindParam(":nome", $usuario->getNome());
+        $stmt->bindParam(":login", $login);
+        $stmt->bindParam(":nome", $nome);
+        $stmt->bindParam(":senha", $senha);
+      
 
         if($stmt->execute()){
             return true;

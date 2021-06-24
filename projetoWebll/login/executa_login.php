@@ -1,6 +1,6 @@
 <?php 
 // Métodos de acesso ao banco de dados 
-require "fachada.php"; 
+require "../fachada.php"; 
  
 // Inicia sessão 
 session_start();
@@ -31,7 +31,7 @@ if($usuario) {
         $_SESSION["id_usuario"]= $usuario->getId(); 
         $_SESSION["nome_usuario"] = stripslashes($usuario->getNome()); 
         //$_SESSION["permissao"]= $dados["postar"]; 
-        header("Location: home/inicio.php"); 
+        header("Location: ../home/inicio.php"); 
         exit; 
     } else {
         $problemas = TRUE; 
@@ -41,7 +41,7 @@ if($usuario) {
 }
 
 if($problemas==TRUE) {
-    header("Location: home/inicio.php"); 
+    header("Location: ../home/inicio.php"); 
     exit; 
 }
 ?>

@@ -12,16 +12,21 @@ $produtos = $dao->buscaTodos();
 
 
 if ($produtos) {
-
-	//echo "<h2>Consulta produtos </h2>";
-
-	echo "<table class='table table-hover table-responsive table-bordered'>";
-	echo "<tr>";
-	echo "<th>ID Fornecedor</th>";
-	echo "<th>Nome</th>";
-	echo "<th>Descrição</th>";
-	echo "</tr>";
-
+	?>
+	<h2>Consulta produtos </h2>
+	
+	<div class='form-group input-group'>
+	<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>
+	<input name='consulta' id='txt_consulta' placeholder='Consultar' type='text' class='form-control'>
+	</div>
+	
+	<table class='table table-hover table-responsive table-bordered '>
+	<tr>
+	<th>ID Fornecedor</th>
+	<th>Nome</th>
+	<th>Descrição</th>
+	</tr>
+	<?php
 	foreach ($produtos as $produto) {
 
 		echo "<tr onclick=location.href='modificaProduto.php?produtoid={$produto->getProdutoid()}'>";
@@ -47,5 +52,11 @@ echo "</a>";
 
 echo "</div>";
 
+
 // layout do rodapé
 include_once "../home/teste_layout_footer.php";
+?>
+
+<script>
+            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
+</script>

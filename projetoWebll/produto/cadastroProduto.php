@@ -1,16 +1,20 @@
 <?php
 include_once "../home/teste_layout_header.php";
+
+
 ?>
 
-<form action="insereProduto.php" method="POST">
+<form action="insereProduto.php" method="POST" >
   <div class="cadastro">
     <h2>Cadastro de Produtos</h2>
     <div class="row">
       <div class="form-group col-md-8">
         <img src="..." class="rounded float-left" width="150px" height="150px">
       </div>
-      <div class="form-group col-md-6">
-        <button href="cadastroProduto.php" class="btn btn-secondary">Carregar Foto</button>
+      <div class="form-group col-md-6" >     
+        <input type="file" name="arquivo"></input>   
+        <br>     
+        <input type= "submit" value="Cadastrar">
       </div>
 
       <div class="form-group col-md-7">
@@ -18,9 +22,10 @@ include_once "../home/teste_layout_header.php";
         <select class="form-control" name='fornecedor'>
           <option selected>Escolher...</option>
           <?php
-
+            //echo "<option selected>{$fornecedor->getNome()}</option>";
           ?>
         </select>
+        
       </div>
       <div class="form-group">
         <label>Nome</label>
@@ -35,6 +40,7 @@ include_once "../home/teste_layout_header.php";
     <button type="submit" href="#" class="btn btn-primary">Cadastrar</button>
   </div>
 </form>
+
 
 
 <?php

@@ -9,38 +9,6 @@ body {
     margin-top: 20px;
 }
 
-
-/*
-nav {
-    margin-left: 1px;
-    width: 300px;
-    height: 800px;
-    background-color: rgb(59, 59, 59);
-    box-sizing: border-box;
-    float: left;
-    padding-top: 10px;
-}*/
-
-
-/*
-
-
-ul.menu li {
-    width: 250px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 13pt;
-    box-sizing: border-box;
-    padding-left: auto;
-    background-color: rgb(54, 54, 54);
-    margin-top: 8px;
-    cursor: pointer;
-    list-style: none;
-}
-
-
-*/
-
 .navegacao {
     box-shadow: 1px 2px #54542c;
     text-align: center;
@@ -75,12 +43,6 @@ ul.menu li {
 
 
 /*
-.sub-category {
-    cursor: pointer;
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-}*/
-
 .menu ul li {
     cursor: pointer;
     background-color: #ffffff;
@@ -96,6 +58,8 @@ ul.menu li {
 .menu ul li a:focus {
     background-color: rgba(150, 147, 147, 0.4)
 }
+
+
 
 .menu ul li a {
     padding: 7px;
@@ -122,4 +86,15 @@ ul.menu li {
 .menu a {
     color: black;
     text-decoration: none;
+}*/
+
+.box-parent-login {
+    /*centralizar div*/
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center
 }

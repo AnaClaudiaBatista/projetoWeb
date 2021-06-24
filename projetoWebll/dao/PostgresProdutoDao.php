@@ -83,7 +83,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
         $produto = null;
 
         $query = "SELECT
-                    produtoid, nome, descricao
+                    nome
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -97,52 +97,39 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto($row['produtoid'],$row['nome'], $row['descricao'], null);
+            $produto = new produto(null,$row['nome'],null, null);
         } 
      
         return $produto;
     }
 
-    public function buscaPornome($nome) {
-
+    public function buscaNome($produtoNome) {
+        
         $produto = null;
 
         $query = "SELECT
-                    id, nome, nome, descricao
+                    nome
                 FROM
                     " . $this->table_name . "
                 WHERE
-                    nome = ?
+                    produtoid = ?
                 LIMIT
                     1 OFFSET 0";
      
-        $stmt = $this->conn->prepare( $query );
-        $stmt->bindParam(1, $nome);
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $produtoNome);
         $stmt->execute();
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto($row['id'],$row['nome'], $row['descricao'], $row['nome']);
-        }
+            $produto = new produto(null,$row['nome'],null, null);
+        } 
      
         return $produto;
     }
 
-    /*
-    public function buscaTodos() {
-
-        $query = "SELECT
-                    id, nome, descricao, nome
-                FROM
-                    " . $this->table_name . 
-                    " ORDER BY id ASC";
-     
-        $stmt = $this->conn->prepare( $query );
-        $stmt->execute();
-     
-        return $stmt;
-    }
-    */
+    
+  
 
     public function buscaTodos() {
 
