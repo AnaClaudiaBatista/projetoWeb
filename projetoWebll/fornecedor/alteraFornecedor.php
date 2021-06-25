@@ -1,7 +1,7 @@
 <?php
 include_once "../fachada.php"; 
 
-$fornecedorid   = @$_GET["fornecedorid"]; 
+$fornecedorid   = @$_GET["fornecedorid"];    
 $nome           = @$_GET["nome"];
 $cnpj           = @$_GET["cnpj"];
 $telefone       = @$_GET["telefone"];
