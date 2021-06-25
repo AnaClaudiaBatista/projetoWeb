@@ -3,6 +3,12 @@ include_once "../home/teste_layout_header.php";
 
 
 ?>
+<form action="enviar.php" method post="post"
+enctype="multipart/form-data">
+
+File: <input type="file" name="Arquivo"><br>
+First Name: <input type="text" name="fname"><br>
+Last Name: <input type="text" name="lname"><br>
 
 <form action="insereProduto.php" method="POST" >
   <div class="cadastro">
