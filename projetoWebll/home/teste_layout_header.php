@@ -50,11 +50,14 @@
 
               include_once "../comum.php";
 
-              if (is_session_started() === FALSE) {
+              /*if (is_session_started() === FALSE) {
                 // Informações de login
                 //echo $_SESSION["nome_usuario"];
                 session_start();
-              }
+              }*/
+              if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
               echo "<a href='../home/inicio.php' class='nav-link text-light'>Inicio</a></li>";
 
              

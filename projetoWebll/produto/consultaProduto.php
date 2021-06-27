@@ -12,27 +12,29 @@ $produtos = $dao->buscaTodos();
 
 
 if ($produtos) {
-	?>
-	<h2>Consulta produtos </h2>
-	
-	<div class='form-group input-group'>
-	<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>
-	<input name='consulta' id='txt_consulta' placeholder='Consultar' type='text' class='form-control'>
-	</div>
-	
-	<table class='table table-hover table-responsive table-bordered '>
-	<tr>
-	<th>ID Fornecedor</th>
-	<th>Nome</th>
-	<th>Descrição</th>
-	</tr>
-	<?php
+
+	//echo "<h2>Consulta produtos </h2>";
+
+	echo "<table class='table table-hover table-responsive table-bordered'>";
+	echo "<tr>";
+	echo "<th>ID Produto</th>";
+	echo "<th>Foto</th>";
+	echo "<th>Nome</th>";
+	echo "<th>Descrição</th>";
+	echo "<th>Quantidade</th>";
+	echo "<th>Preço</th>";
+	echo "<th>Deletar</th>";
+	echo "</tr>";
+
 	foreach ($produtos as $produto) {
 
 		echo "<tr onclick=location.href='modificaProduto.php?produtoid={$produto->getProdutoid()}'>";
 		echo "<td>{$produto->getProdutoid()}</td>";
+		echo "<td><img style='width:140px;heigth:140px;' src='{$produto->getFoto()}'/></td>";
 		echo "<td>{$produto->getNome()}</td>";
 		echo "<td>{$produto->getDescricao()}</td>";
+		echo "<td>{$produto->getEstoque()->getQuantidade()}</td>";
+		echo "<td>{$produto->getEstoque()->getPreco()}</td>";
 		echo "<td>";
 
 		// botão para remover um usuário
@@ -52,11 +54,5 @@ echo "</a>";
 
 echo "</div>";
 
-
 // layout do rodapé
 include_once "../home/teste_layout_footer.php";
-?>
-
-<script>
-            $('input#txt_consulta').quicksearch('table#tabela tbody tr');
-</script>

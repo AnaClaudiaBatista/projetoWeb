@@ -5,6 +5,7 @@ include_once('PostgresUsuarioDao.php');
 include_once('PostgresClienteDao.php');
 include_once('PostgresFornecedorDao.php');
 include_once('PostgresProdutoDao.php');
+include_once('PostgresPedidoDao.php');
 
 class PostgresDaofactory extends DaoFactory {
 
@@ -14,6 +15,7 @@ class PostgresDaofactory extends DaoFactory {
     private $port = "5432";
     private $username = "postgres";
     private $password = "postgres";
+    //private $password = "sql";
     public $conn;
   
     // get the database connection
@@ -45,6 +47,10 @@ class PostgresDaofactory extends DaoFactory {
 
     public function getProdutoDao() {
         return new PostgresProdutoDao($this->getConnection());
+    }
+
+    public function getPedidoDao() {
+        return new PostgresPedidoDao($this->getConnection());
     }
 }
 ?>

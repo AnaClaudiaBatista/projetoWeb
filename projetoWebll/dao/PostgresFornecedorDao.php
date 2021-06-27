@@ -117,7 +117,7 @@ class PostgresFornecedorDao extends PostgresDao implements FornecedorDao{
 
         return $fornecedor;
     }
- 
+
 
 
     public function buscaTodos()

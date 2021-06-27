@@ -10,8 +10,8 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
     public function insere($cliente) {
         
        $query = "INSERT INTO " . $this->table_name .
-            " (  nome,  cpf,  telefone,  email,  cartaocredito) VALUES" .
-            " ( :nome, :cpf, :telefone, :email, :cartaocredito)";
+            " (  nome,  cpf,  telefone,  email,  cartaocredito, usuarioid) VALUES" .
+            " ( :nome, :cpf, :telefone, :email, :cartaocredito, :usuarioid)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -21,6 +21,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $telefone      = $cliente->getTelefone();
         $email         = $cliente->getEmail();
         $cartaocredito = $cliente->getCartaocredito();
+        $usuarioid     = $cliente->getUsuarioid();
 
         // bindValue || bindParam
         $stmt->bindValue(":nome", $nome);
@@ -28,6 +29,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $stmt->bindValue(":telefone", $telefone); 
         $stmt->bindValue(":email", $email);
         $stmt->bindValue(":cartaocredito", $cartaocredito);   
+        $stmt->bindValue(":usuarioid", $usuarioid);
 
        
         if($stmt->execute()){
@@ -92,7 +94,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $cliente = null;
 
         $query = "SELECT
-                   clienteid, nome, cpf, telefone, email,cartaocredito
+                   clienteid, nome, cpf, telefone, email,cartaocredito, usuarioid
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -106,7 +108,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $cliente = new Cliente($row['clienteid'], $row['nome'], $row['cpf'], $row['telefone'], $row['email'], $row['cartaocredito']);
+            $cliente = new Cliente($row['clienteid'], $row['nome'], $row['cpf'], $row['telefone'], $row['email'], $row['cartaocredito'], $row['usuarioid']);
         }
 
         return $cliente;
@@ -119,7 +121,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
         $clientes = array();
 
         $query = "SELECT
-                    clienteid, nome, cpf, telefone, email,cartaocredito
+                    clienteid, nome, cpf, telefone, email,cartaocredito, usuarioid
                 FROM
                     " . $this->table_name .
             " ORDER BY clienteid";
@@ -129,7 +131,7 @@ class PostgresClienteDao extends PostgresDao implements ClienteDao {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $clientes[] = new Cliente($clienteid, $nome, $cpf, $telefone, $email, $cartaocredito);
+            $clientes[] = new Cliente($clienteid, $nome, $cpf, $telefone, $email, $cartaocredito, $usuarioid);
         }
 
         return $clientes;

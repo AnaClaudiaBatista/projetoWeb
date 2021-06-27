@@ -25,7 +25,7 @@ if ($fornecedores) {
 
 	foreach ($fornecedores as $fornecedor) {
 
-		echo "<tr onclick=location.href='modifica_fornecedor.php?fornecedorid={$fornecedor->getFornecedorid()}'>";
+		echo "<tr onclick=location.href='modificaFornecedor.php?fornecedorid={$fornecedor->getFornecedorid()}'>";
 		echo "<td>{$fornecedor->getFornecedorid()}</td>";
 		echo "<td>{$fornecedor->getNome()}</td>";
 		echo "<td>{$fornecedor->getCnpj()}</td>";
