@@ -1,13 +1,16 @@
 <?php
 include_once "../fachada.php";
+include_once "../utilitarios/images.php";
 
 $produtoid     = @$_POST["produtoid"]; 
 $nome          = @$_POST["nome"];
 $descricao     = @$_POST["descricao"];
-$foto          = @$_POST["foto"];
+$image         = @$_FILES["file"];
 
+$content = file_get_contents($image["tmp_name"]);
+$foto = pg_escape_bytea($content);
 
-$produto = new Produto($produtoid, $nome, $descricao, null);
+$produto = new Produto($produtoid, $nome, $descricao, $foto);
 $dao = $factory->getProdutoDao();
 if ($dao->insere($produto)){
     echo '<div class="alert alert-sucess">
@@ -20,7 +23,6 @@ if ($dao->insere($produto)){
               <strong>Erro ao cadastrar!</strong> Não foi possível cadastrar a avaliação.
               </div>';
 }
-
 
 
 exit;

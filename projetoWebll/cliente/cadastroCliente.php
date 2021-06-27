@@ -1,14 +1,36 @@
   <?php
   include_once "../home/teste_layout_header.php";
+
+  if(isset($_GET['isPedido']))
+  {
+      $isPedido = 1;
+  }
+  else{
+    $isPedido = 0;
+  }
   ?>
 
   <form action="insereCliente.php" method="POST">
+    <input type="hidden" name="isPedido" value="<?php echo $isPedido; ?>">
     <div class="cadastro">
+      <h2>Informações Usuario</h2>
+      
+      <div class="row">
+        <div class="form-group col-md-6">
+          <label>Login</label>
+          <input required type="text" class="form-control" name='login'/>
+        </div>
+        <div class="form-group col-md-6">
+          <label>Senha</label>
+          <input required type="password" class="form-control" name='senha' />
+        </div>
+      </div>
+      <hr/>
       <h2>Cadastro de Clientes</h2>
       <div class="row">
         <div class="form-group">
           <label>Nome</label>
-          <input type="text" name='nome' class="form-control" placeholder="Nome" />
+          <input required type="text" name='nome' class="form-control" placeholder="Nome" />
         </div>
         <div class="form-group col-md-6">
           <label>CPF</label>
@@ -61,7 +83,7 @@
         </div>
       </div>
 
-    <button type="submit" href="#" class="btn btn-primary">Cadastrar</button>
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
     </div>
   </form>
 

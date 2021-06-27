@@ -1,7 +1,7 @@
 <?php
 include "../verifica.php";
 include_once "../fachada.php";
-include_once "../teste_layout_header.php";
+include_once "../home/teste_layout_header.php";
 
 $produtoid = @$_GET["produtoid"];
 
@@ -46,5 +46,5 @@ $produto = $dao->buscaPorId($produtoid);
 
 <?php
 
-include_once "../teste_layout_footer.php";
+include_once "../home/teste_layout_footer.php";
 ?>

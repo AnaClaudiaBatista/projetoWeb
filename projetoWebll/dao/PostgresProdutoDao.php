@@ -10,25 +10,27 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
     public function insere($produto) {
 
         $query = "INSERT INTO " . $this->table_name . 
-        " (nome, descricao) VALUES" .
-        " (:nome, :descricao)";
+        " (nome, descricao, foto) VALUES" .
+        " (:nome, :descricao, :foto)";
 
         $stmt = $this->conn->prepare($query);
 
         
         $nome       = $produto->getNome();        
         $descricao  = $produto->getDescricao();
-
+        $foto = $produto->getFoto();
+        
+        
         // bind values 
         $stmt->bindParam(":nome", $nome);
         $stmt->bindParam(":descricao", $descricao);
+        $stmt->bindParam(":foto", $foto);
 
         if($stmt->execute()){
             return true;
         }else{
             return false;
         }
-
     }
 
     public function removePorId($produtoid) {
@@ -83,13 +85,21 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
         $produto = null;
 
         $query = "SELECT
-                    nome
+                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco
+                FROM
+                    " . $this->table_name . " p" .
+                    " left join estoque e on p.produtoid = e.produtoid  " .
+                    "WHERE p.produtoid = ? " .
+                    "LIMIT 1 OFFSET 0";
+
+        /*$query = "SELECT
+                    produtoid, nome, descricao
                 FROM
                     " . $this->table_name . "
                 WHERE
                     produtoid = ?
                 LIMIT
-                    1 OFFSET 0";
+                    1 OFFSET 0";*/
      
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(1, $produtoid);
@@ -97,56 +107,82 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto(null,$row['nome'],null, null);
+            $produto = new produto($row['produtoid'],$row['nome'], $row['descricao'], null);
+            $produto->setEstoque(new Estoque($row['produtoid'], $row['preco'], $row['quantidade']));
         } 
      
         return $produto;
     }
 
-    public function buscaNome($produtoNome) {
-        
+    public function buscaPornome($nome) {
+
         $produto = null;
 
         $query = "SELECT
-                    nome
+                    id, nome, nome, descricao
                 FROM
                     " . $this->table_name . "
                 WHERE
-                    produtoid = ?
+                    nome = ?
                 LIMIT
                     1 OFFSET 0";
      
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(1, $produtoNome);
+        $stmt = $this->conn->prepare( $query );
+        $stmt->bindParam(1, $nome);
         $stmt->execute();
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto(null,$row['nome'],null, null);
-        } 
+            $produto = new produto($row['id'],$row['nome'], $row['descricao'], $row['nome']);
+        }
      
         return $produto;
     }
 
-    
-  
+    /*
+    public function buscaTodos() {
+
+        $query = "SELECT
+                    id, nome, descricao, nome
+                FROM
+                    " . $this->table_name . 
+                    " ORDER BY id ASC";
+     
+        $stmt = $this->conn->prepare( $query );
+        $stmt->execute();
+     
+        return $stmt;
+    }
+    */
 
     public function buscaTodos() {
 
         $produtos = array();
 
         $query = "SELECT
-                    produtoid, nome, descricao
+                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco, encode(p.foto, 'base64') as foto
                 FROM
-                    " . $this->table_name . 
-                    " ORDER BY produtoid ASC";
+                    " . $this->table_name . " p" .
+                    " left join estoque e on p.produtoid = e.produtoid  " .
+                    " ORDER BY p.produtoid ASC";
      
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $produtos[] = new Produto($produtoid,$nome,$descricao, null);
+            $data_foto = null;
+            
+
+            if(isset($foto))
+            {
+                $data_foto = 'data:image/png;base64,' . $foto;
+            }
+
+            $item = new Produto($produtoid,$nome,$descricao, $data_foto);
+            $item->setEstoque(new Estoque($produtoid, $preco, $quantidade));
+
+            $produtos[] = $item;
         }
         
         return $produtos;

@@ -7,7 +7,11 @@ include_once('dao/ClienteDao.php');
 include_once('model/Fornecedor.php');
 include_once('dao/ClienteDao.php');
 include_once('model/Produto.php');
+include_once('model/Estoque.php');
 include_once('dao/ProdutoDao.php');
+
+include_once('model/Pedido.php');
+include_once('dao/PedidoDao.php');
 
 include_once('dao/DaoFactory.php');
 include_once('dao/PostgresDaoFactory.php');

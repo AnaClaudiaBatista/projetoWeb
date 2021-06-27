@@ -5,32 +5,30 @@ include_once('PostgresDao.php');
 
 class PostgresUsuarioDao extends PostgresDao implements UsuarioDao {
 
-    private $table_name = 'Usuario';
+    private $table_name = 'usuario';
     
     public function insere($usuario) {
 
         $query = "INSERT INTO " . $this->table_name . 
         " (login, senha, nome) VALUES" .
-        " (:login, :senha, :nome)";
+        " (:login, :senha, :nome) returning id";
 
         $stmt = $this->conn->prepare($query);
 
-        $login       = $usuario->getLogin();  
-        $nome       = $usuario->getNome();        
-        $senha      = $usuario->getSenha();
+        $login = $usuario->getLogin();
+        $senha = md5($usuario->getSenha());
+        $nome = $usuario->getNome();
 
         // bind values 
         $stmt->bindParam(":login", $login);
-        $stmt->bindParam(":nome", $nome);
         $stmt->bindParam(":senha", $senha);
-      
+        $stmt->bindParam(":nome", $nome);
 
-        if($stmt->execute()){
-            return true;
-        }else{
-            return false;
-        }
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $usuarioid = $row['id'];
 
+        return $usuarioid;
     }
 
     public function removePorId($id) {

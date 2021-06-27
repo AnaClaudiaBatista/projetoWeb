@@ -28,4 +28,4 @@ echo "</a>";
 echo "</section>";
 }
 // layout do rodapé
-include_once "../teste_layout_footer.php";
+include_once "../home/teste_layout_footer.php";
