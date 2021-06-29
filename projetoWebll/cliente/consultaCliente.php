@@ -1,7 +1,7 @@
 <?php
 include "../verifica.php";
 include_once "../fachada.php";
-include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 
 echo "<div class='cadastro'>";
 
@@ -13,7 +13,13 @@ $clientes = $dao->buscaTodos();
 
 if ($clientes) {
 
-  //  echo "<h2>Consulta Clientes </h2>";
+    echo "<h2>Consulta Clientes </h2>";
+	echo "<div class='form-group input-group'>
+	<button class='btn btn-primary' type='button'>
+	<i class='fas fa-search fa-sm' ></i>
+     </button>
+	<input name='consulta' id='txt_consulta' placeholder='Consultar' type='text' class='form-control'>
+	</div>";
 
 	echo "<table class='table table-hover table-responsive table-bordered'>";
 	echo "<tr>";
@@ -50,4 +56,4 @@ echo "</a>";
 echo "</div>";
 
 // layout do rodapé
-include_once "../home/teste_layout_footer.php";
+include_once "../navegacao/teste_layout_footer.php";

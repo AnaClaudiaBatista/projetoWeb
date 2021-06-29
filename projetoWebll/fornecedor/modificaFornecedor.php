@@ -1,7 +1,7 @@
 <?php
 include "../verifica.php";
 include_once "../fachada.php";
-include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 
 $fornecedorid = @$_GET["fornecedorid"];
 
@@ -89,4 +89,4 @@ $fornecedor = $dao->buscaPorId($fornecedorid);
 
 <?php
 
-include_once "../home/teste_layout_footer.php"; ?>
+include_once "../navegacao/teste_layout_footer.php"; ?>

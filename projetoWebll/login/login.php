@@ -2,7 +2,7 @@
 $page_title = "Demo : Autenticação Obrigatória";
 
 // layout do cabeçalho
-include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 ?>
 
 <div class="box-parent-login">
@@ -22,7 +22,7 @@ include_once "../home/teste_layout_header.php";
 				</div> 
 				<button type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">Entrar</button>
 				<p class="txt-center ls-login-signup">Não possui cadastro?
-					<a href="../Registrar/registrarUsuario.php">Cadastre-se agora</a>
+					<a href="../registrar/registrarUsuario.php">Cadastre-se agora</a>
 				</p>
  
 			</fieldset>

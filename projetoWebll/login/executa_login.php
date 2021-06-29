@@ -31,7 +31,7 @@ if($usuario) {
         $_SESSION["id_usuario"]= $usuario->getId(); 
         $_SESSION["nome_usuario"] = stripslashes($usuario->getNome()); 
         //$_SESSION["permissao"]= $dados["postar"]; 
-        header("Location: ../home/inicio.php"); 
+        header("Location: ../marketplace/index.php"); 
         exit; 
     } else {
         $problemas = TRUE; 

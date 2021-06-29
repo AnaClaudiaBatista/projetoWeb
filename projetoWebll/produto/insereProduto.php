@@ -6,11 +6,12 @@ $produtoid     = @$_POST["produtoid"];
 $nome          = @$_POST["nome"];
 $descricao     = @$_POST["descricao"];
 $image         = @$_FILES["file"];
+$fornecedorid     = @$_POST["fornecedorid"];
 
 $content = file_get_contents($image["tmp_name"]);
 $foto = pg_escape_bytea($content);
 
-$produto = new Produto($produtoid, $nome, $descricao, $foto);
+$produto = new Produto($produtoid, $nome, $descricao, $foto,$fornecedorid);
 $dao = $factory->getProdutoDao();
 if ($dao->insere($produto)){
     echo '<div class="alert alert-sucess">

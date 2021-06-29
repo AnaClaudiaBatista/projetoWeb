@@ -3,16 +3,19 @@ class Produto{
     
     private $produtoid;
     private $nome;
-    private $descricao; 
+    private $descricao;     
     private $foto;
+    private $fornecedorid;
     private $produto_estoque;
+    
 
-    public function __construct($produtoid, $nome, $descricao, $foto)
+    public function __construct($produtoid, $nome, $descricao, $foto, $fornecedorid)
     {
         $this->produtoid   =$produtoid;
         $this->nome        =$nome;
-        $this->descricao   =$descricao;
+        $this->descricao   =$descricao;        
         $this->foto        =$foto;
+        $this->fornecedorid   =$fornecedorid;
     }
 
     public function getProdutoid() { return $this->produtoid; }
@@ -23,10 +26,13 @@ class Produto{
 
     public function getDescricao() { return $this->descricao; }
     public function setDescricao($descricao) {$this->descricao = $descricao;}
-
+    
 
     public function getFoto() { return $this->foto; }
     public function setFoto($foto) {$this->foto = $foto;}
+
+    public function getFornecedorid() { return $this->fornecedorid; }
+    public function setFornecedorid($fornecedorid) {$this->fornecedorid = $fornecedorid;}
 
     public function getEstoque() { return $this->produto_estoque; }
     public function setEstoque($produto_estoque) {$this->produto_estoque = $produto_estoque;}

@@ -1,7 +1,7 @@
 <?php
 include "../verifica.php";
 include_once "../fachada.php";
-include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 
 $produtoid = @$_GET["produtoid"];
 
@@ -16,8 +16,19 @@ $produto = $dao->buscaPorId($produtoid);
       <div class="form-group col-md-7">
         <label>Fornecedor</label>
         <select class="form-control" name='fornecedor'>
-          <option selected>Escolher...</option>
-          <?php /*SELECT FORNECEDOR*/
+         
+          <?php
+          include "../verifica.php";
+          include_once "../fachada.php";
+          $dao = $factory->getFornecedorDao();
+          $fornecedores = $dao->buscaTodos();
+
+          if ($fornecedores) {
+            foreach ($fornecedores as $fornecedor) {
+              echo '<option selected> value='. $fornecedor->getFornecedorid() . '>' . $fornecedor->getNome() . "</option>";
+              echo '<option value=' . $fornecedor->getFornecedorid() . '>' . $fornecedor->getNome() . "</option>";
+            }
+          }
           ?>
         </select>
       </div>
@@ -37,14 +48,14 @@ $produto = $dao->buscaPorId($produtoid);
         </div>
       </div>
 
-    
+
       <input type='hidden' name='produtoid' value='<?php echo $produto->getprodutoid(); ?>' />
     </div>
-    </div>
+  </div>
 </form>
 
 
 <?php
 
-include_once "../home/teste_layout_footer.php";
+include_once "../navegacao/teste_layout_footer.php";
 ?>

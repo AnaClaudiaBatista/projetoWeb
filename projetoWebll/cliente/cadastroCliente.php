@@ -1,5 +1,5 @@
   <?php
-  include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 
   if(isset($_GET['isPedido']))
   {
@@ -88,5 +88,5 @@
   </form>
 
   <?php
-  include_once "../home/teste_layout_footer.php";
+  include_once "../navegacao/teste_layout_footer.php";
   ?>

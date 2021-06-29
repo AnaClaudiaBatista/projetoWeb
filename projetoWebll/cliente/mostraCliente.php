@@ -29,5 +29,5 @@ echo "</a>";
 echo "</div>";
 }
 // layout do rodapé
-include_once "../home/teste_layout_footer.php";
+include_once "../navegacao/teste_layout_footer.php";
 ?>

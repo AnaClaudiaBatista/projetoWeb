@@ -10,21 +10,23 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
     public function insere($produto) {
 
         $query = "INSERT INTO " . $this->table_name . 
-        " (nome, descricao, foto) VALUES" .
-        " (:nome, :descricao, :foto)";
+        " (nome, descricao, foto,fornecedorid) VALUES" .
+        " (:nome, :descricao,:foto, :fornecedorid)";
 
         $stmt = $this->conn->prepare($query);
 
         
         $nome       = $produto->getNome();        
-        $descricao  = $produto->getDescricao();
+        $descricao  = $produto->getDescricao();        
         $foto = $produto->getFoto();
+        $fornecedorid  = $produto->getFornecedorid();
         
         
         // bind values 
         $stmt->bindParam(":nome", $nome);
-        $stmt->bindParam(":descricao", $descricao);
+        $stmt->bindParam(":descricao", $descricao);              
         $stmt->bindParam(":foto", $foto);
+        $stmt->bindParam(":fornecedorid", $fornecedorid);  
 
         if($stmt->execute()){
             return true;
@@ -85,7 +87,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
         $produto = null;
 
         $query = "SELECT
-                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco
+                    p.produtoid, p.nome, p.descricao, e.quantidade, p.fornecedorid, e.preco
                 FROM
                     " . $this->table_name . " p" .
                     " left join estoque e on p.produtoid = e.produtoid  " .
@@ -107,7 +109,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto($row['produtoid'],$row['nome'], $row['descricao'], null);
+            $produto = new produto($row['produtoid'],$row['nome'],$row['fornecedorid'], $row['descricao'], null);
             $produto->setEstoque(new Estoque($row['produtoid'], $row['preco'], $row['quantidade']));
         } 
      
@@ -119,7 +121,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
         $produto = null;
 
         $query = "SELECT
-                    id, nome, nome, descricao
+                    id, nome, descricao, fornecedorid,nome
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -133,7 +135,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $produto = new produto($row['id'],$row['nome'], $row['descricao'], $row['nome']);
+            $produto = new produto($row['id'],$row['nome'], $row['descricao'], $row['fornecedorid'],null);
         }
      
         return $produto;
@@ -160,7 +162,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
         $produtos = array();
 
         $query = "SELECT
-                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco, encode(p.foto, 'base64') as foto
+                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco, p.fornecedorid, encode(p.foto, 'base64') as foto
                 FROM
                     " . $this->table_name . " p" .
                     " left join estoque e on p.produtoid = e.produtoid  " .
@@ -179,7 +181,7 @@ class PostgresProdutoDao extends PostgresDao implements ProdutoDao {
                 $data_foto = 'data:image/png;base64,' . $foto;
             }
 
-            $item = new Produto($produtoid,$nome,$descricao, $data_foto);
+            $item = new Produto($produtoid,$nome,$descricao, $fornecedorid, $data_foto);
             $item->setEstoque(new Estoque($produtoid, $preco, $quantidade));
 
             $produtos[] = $item;

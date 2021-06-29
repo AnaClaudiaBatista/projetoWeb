@@ -3,7 +3,7 @@ include_once "../fachada.php";
 
 $produtoid      = @$_GET["produtoid"];
 
-$produto = new Produto($produtoid, null, null, null);
+$produto = new Produto($produtoid, null, null, null,null);
 $dao = $factory->getProdutoDao();
 if ($dao->removePorId($produtoid)){
     echo '<div class="alert alert-sucess">

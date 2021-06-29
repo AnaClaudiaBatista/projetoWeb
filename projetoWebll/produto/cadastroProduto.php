@@ -1,5 +1,5 @@
 <?php
-include_once "../home/teste_layout_header.php";
+include_once "../navegacao/teste_layout_header.php";
 ?>
 
 <form action="insereProduto.php" method="POST" enctype="multipart/form-data">
@@ -10,7 +10,7 @@ include_once "../home/teste_layout_header.php";
         <img src="..." id="imageProduto" class="rounded float-left" width="150px" height="150px">
       </div>
       <div class="form-group col-md-6">
-        <input type="file" onchange="previewFile();"  id="file" name="file"/>
+        <input type="file" onchange="previewFile();" id="file" name="file" />
       </div>
 
       <div class="form-group col-md-7">
@@ -18,17 +18,27 @@ include_once "../home/teste_layout_header.php";
         <select class="form-control" name='fornecedor'>
           <option selected>Escolher...</option>
           <?php
+          include "../verifica.php";
+          include_once "../fachada.php";
+          $dao = $factory->getFornecedorDao();
+          $fornecedores = $dao->buscaTodos();
 
+          if ($fornecedores) {
+            foreach ($fornecedores as $fornecedor) {
+              echo "<option value=\"" . $fornecedor->getFornecedorid() . "\">" . $fornecedor->getNome() . "</option>";
+            }
+          }
           ?>
         </select>
       </div>
-      <div class="form-group">
+
+      <div class="form-group col-md-8">
         <label>Nome</label>
         <input type="text" class="form-control" name='nome' placeholder="Nome da Empresa">
       </div>
-      <div class="form-group col-md-6">
-        <label>descricao</label>
-        <input type="text" class="form-control" name='descricao' placeholder="Descricao">
+      <div class="form-group col-md-8">
+        <label>Descrição</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='descricao' placeholder="Descricao"></textarea>
       </div>
     </div>
 
@@ -40,4 +50,4 @@ include_once "../home/teste_layout_header.php";
 
 <?php
 
-include_once "../home/teste_layout_footer.php"; ?>
+include_once "../navegacao/teste_layout_footer.php"; ?>
