@@ -5,8 +5,9 @@
     
     $dao = $factory->getProdutoDao();
     $produtos = $dao->buscaTodos();
-
+    
    // session_start();
+   
 
     $usuario_logado = null;
     $nome_usuario = "";
