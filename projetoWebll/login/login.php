@@ -22,7 +22,7 @@ include_once "../navegacao/teste_layout_header.php";
 				</div> 
 				<button type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">Entrar</button>
 				<p class="txt-center ls-login-signup">Não possui cadastro?
-					<a href="../registrar/registrarUsuario.php">Cadastre-se agora</a>
+					<a href="../registrar/registrar.php">Cadastre-se agora</a>
 				</p>
  
 			</fieldset>

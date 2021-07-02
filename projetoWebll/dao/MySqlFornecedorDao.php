@@ -1,9 +1,9 @@
 <?php
 
 include_once('FornecedorDao.php');
-include_once('PostgresDao.php');
+include_once('MySqlDao.php');
 
-class PostgresFornecedorDao extends PostgresDao implements FornecedorDao{
+class MySqlFornecedorDao extends MySqlDao implements FornecedorDao{
 
     private $table_name = 'fornecedor';
 

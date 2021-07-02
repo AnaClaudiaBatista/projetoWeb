@@ -9,16 +9,16 @@ include_once "../navegacao/teste_layout_header.php";
 <div class="box-parent-login">
 	<div class="well bg-white box-login">
 		<h1 class="ls-login-logo">Cadastrar-se</h1>
-		<form action="insereUsuario.php" method="POST" role="form">
+		<form action="insereUsuario.php" method="get" role="form">
 			<fieldset>
 
 				<div class="form-group ls-login-user">
 					<label for="userLogin">Usuário</label>
-					<input class="form-control ls-login-bg-user input-lg" id="login" name="login" type="text" aria-label="Usuário" placeholder="Usuário">
+					<input class="form-control ls-login-bg-user input-lg" id="login" name='login' type="text" aria-label="Usuário" placeholder="Usuário">
 				</div>
 				<div class="form-group ls-login-user">
 					<label for="userLogin">Nome</label>
-					<input class="form-control ls-login-bg-user input-lg" id="nome" name="nome" type="text" aria-label="Nome" placeholder="Nome">
+					<input class="form-control ls-login-bg-user input-lg" id="nome" name='nome' type="text" aria-label="Nome" placeholder="Nome">
 				</div>
 
 				<div class="form-group ls-login-password">

@@ -1,9 +1,9 @@
 <?php
 
 include_once('UsuarioDao.php');
-include_once('PostgresDao.php');
+include_once('MySqlDao.php');
 
-class PostgresUsuarioDao extends PostgresDao implements UsuarioDao {
+class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
 
     private $table_name = 'usuario';
     
@@ -24,11 +24,11 @@ class PostgresUsuarioDao extends PostgresDao implements UsuarioDao {
         $stmt->bindParam(":senha", $senha);
         $stmt->bindParam(":nome", $nome);
 
-        $stmt->execute();
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $usuarioid = $row['id'];
-
-        return $usuarioid;
+        if($stmt->execute()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function removePorId($id) {

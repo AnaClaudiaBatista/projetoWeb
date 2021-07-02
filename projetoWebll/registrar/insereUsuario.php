@@ -1,14 +1,15 @@
 <?php
 include_once "../fachada.php";
 
-$usuarioid     = @$_GET["usuarioeid"]; 
-$login          = @$_POST["login"];
-$nome          = @$_POST["nome"];
-$senha           = @$_POST["senha"];
+$usuarioid     = @$_GET["usuarioid"]; 
+$login          = @$_GET["login"];
+$nome          = @$_GET["nome"];
+$senha           = @$_GET["senha"];
 
-
-$usuario = new Usuario(null,$login, $senha, $nome);
 $dao = $factory->getUsuarioDao();
+
+$usuario = new Usuario($usuarioid,$login, $senha, $nome);
+
 if ($dao->insere($usuario)){
     /*echo '<div class="alert alert-sucess">
     <strong>Sucesso!</strong> avaliação cadastrada.

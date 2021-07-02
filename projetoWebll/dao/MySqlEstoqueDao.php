@@ -1,9 +1,9 @@
 <?php
 /*
 include_once('PedidoDao.php');
-include_once('PostgresDao.php');
+include_once('MySqlDao.php');
 
-class PostgresPedidoDao extends PostgresDao implements PedidoDao {
+class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
     private $table_name = 'pedido';
 

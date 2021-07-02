@@ -28,8 +28,8 @@ if($usuario) {
     if(strcmp($senha, $usuario->getSenha())) 
     { 
         // TUDO OK! Agora, passa os dados para a sessão e redireciona o usuário 
-        $_SESSION["id_usuario"]= $usuario->getId(); 
-        $_SESSION["nome_usuario"] = stripslashes($usuario->getNome()); 
+        $_SESSION["usuarioid"]= $usuario->getId(); 
+        $_SESSION["login"] = stripslashes($usuario->getNome()); 
         //$_SESSION["permissao"]= $dados["postar"]; 
         header("Location: ../marketplace/index.php"); 
         exit; 

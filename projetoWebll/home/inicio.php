@@ -87,5 +87,5 @@ include_once "../navegacao/teste_layout_header.php"
 </body>
 
 <?php
-include_once "teste_layout_footer.php"
+include_once "../navegacao/teste_layout_footer.php"
 ?>

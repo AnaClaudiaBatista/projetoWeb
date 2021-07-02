@@ -2,14 +2,19 @@
 include_once "../fachada.php";
 
 // $clienteid     = @$_GET["clienteid"]; 
-$isPedido      = @$_POST["isPedido"];
-$login         = @$_POST["login"];
-$senha         = @$_POST["senha"];
-$nome          = @$_POST["nome"];
-$cpf           = @$_POST["cpf"];
-$telefone      = @$_POST["telefone"];
-$email         = @$_POST["email"];
-$cartaocredito = @$_POST["cartaocredito"];
+$isPedido                  = @$_POST["isPedido"];
+$nome                      = @$_POST["nome"];
+$email                     = @$_POST["email"];
+$telefone                  = @$_POST["telefone"];
+$cpf                       = @$_POST["cpf"];
+$login                       = @$_POST["login"];
+$senha                     = @$_POST["senha"];
+$tipo_usuario              = @$_POST["tipo_usuario"];
+$num_cartaocredito         = @$_POST["num_cartaocredito"];
+$cvv_cartaocredito         = @$_POST["cvv_cartaocredito"];
+$titular_cartaocredito     = @$_POST["titular_cartaocredito"];
+$vencimento_cartaocredito  = @$_POST["vencimento_cartaocredito"];
+
 
 $daoCliente = $factory->getClienteDao();
 $daoUsuario = $factory->getUsuarioDao();
@@ -20,7 +25,7 @@ $usuarioid = $daoUsuario->insere($user);
 
 if(isset($usuarioid) && $usuarioid > 0)
 {
-    $cliente = new Cliente(null,$nome,$cpf,$telefone,$email,$cartaocredito, $usuarioid);
+    $cliente = new Cliente(null,$nome,$email,$telefone,$cpf, $senha, $tipo_usuario, $num_cartaocredito, $cvv_cartaocredito, $titular_cartaocredito, $vencimento_cartaocredito );
 
     if ($daoCliente->insere($cliente)){
         echo '<div class="alert alert-sucess">
@@ -54,5 +59,3 @@ else{
 
 
 exit;
-
-?>
