@@ -2,9 +2,9 @@
 // Inicia sessões 
 include_once "comum.php";
 		
-//if ( is_session_started() === FALSE ) {
+if ( is_session_started() === FALSE ) {
     session_start();
-//}
+}
 
 error_log("LOGIN");
 

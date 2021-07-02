@@ -25,11 +25,11 @@ $usuario = $dao->buscaPorLogin($login);
 $problemas = FALSE;
 if($usuario) {
     // Agora verifica a senha 
-    if(strcmp($senha, $usuario->getSenha())) 
+    if(!strcmp($senha, $usuario->getSenha())) 
     { 
         // TUDO OK! Agora, passa os dados para a sessão e redireciona o usuário 
-        $_SESSION["usuarioid"]= $usuario->getId(); 
-        $_SESSION["login"] = stripslashes($usuario->getNome()); 
+        $_SESSION["id_usuario"]= $usuario->getUsuarioid(); 
+        $_SESSION["nome_usuario"] = stripslashes($usuario->getNome()); 
         //$_SESSION["permissao"]= $dados["postar"]; 
         header("Location: ../marketplace/index.php"); 
         exit; 
@@ -41,6 +41,7 @@ if($usuario) {
 }
 
 if($problemas==TRUE) {
+    echo "<script type=\"text/javascript\">alert('Usuario ou senha incorretos')</script>";
     header("Location: ../home/inicio.php"); 
     exit; 
 }

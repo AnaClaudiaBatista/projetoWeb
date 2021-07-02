@@ -11,7 +11,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
 
         $query = "INSERT INTO " . $this->table_name . 
         " (login, senha, nome) VALUES" .
-        " (:login, :senha, :nome) returning id";
+        " (:login, :senha, :nome)";
 
         $stmt = $this->conn->prepare($query);
 
@@ -31,14 +31,14 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         }
     }
 
-    public function removePorId($id) {
+    public function removePorId($usuarioid) {
         $query = "DELETE FROM " . $this->table_name . 
-        " WHERE id = :id";
+        " WHERE usuarioid = :usuarioid";
 
         $stmt = $this->conn->prepare($query);
 
         // bind parameters
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':usuarioid', $usuarioid);
 
         // execute the query
         if($stmt->execute()){
@@ -56,7 +56,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
 
         $query = "UPDATE " . $this->table_name . 
         " SET login = :login, senha = :senha, nome = :nome" .
-        " WHERE id = :id";
+        " WHERE usuarioid = :usuarioid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -64,7 +64,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         $stmt->bindParam(":login", $usuario->getLogin());
         $stmt->bindParam(":senha", md5($usuario->getSenha()));
         $stmt->bindParam(":nome", $usuario->getNome());
-        $stmt->bindParam(':id', $usuario->getId());
+        $stmt->bindParam(':usuarioid', $usuario->getUsuarioid());
 
         // execute the query
         if($stmt->execute()){
@@ -74,26 +74,26 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         return false;
     }
 
-    public function buscaPorId($id) {
+    public function buscaPorId($usuarioid) {
         
         $usuario = null;
 
         $query = "SELECT
-                    id, login, nome, senha
+                    usuarioid, login, nome, senha
                 FROM
                     " . $this->table_name . "
                 WHERE
-                    id = ?
+                usuarioid = ?
                 LIMIT
                     1 OFFSET 0";
      
         $stmt = $this->conn->prepare( $query );
-        $stmt->bindParam(1, $id);
+        $stmt->bindParam(1, $usuarioid);
         $stmt->execute();
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $usuario = new Usuario($row['id'],$row['login'], $row['senha'], $row['nome']);
+            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome']);
         } 
      
         return $usuario;
@@ -104,7 +104,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         $usuario = null;
 
         $query = "SELECT
-                    id, login, nome, senha
+                    usuarioid, login, senha, nome
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -118,7 +118,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $usuario = new Usuario($row['id'],$row['login'], $row['senha'], $row['nome']);
+            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome']);
         }
      
         return $usuario;
@@ -128,10 +128,10 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
     public function buscaTodos() {
 
         $query = "SELECT
-                    id, login, senha, nome
+                    usuarioid, login, senha, nome
                 FROM
                     " . $this->table_name . 
-                    " ORDER BY id ASC";
+                    " ORDER BY usuarioid ASC";
      
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
@@ -145,17 +145,17 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         $usuarios = array();
 
         $query = "SELECT
-                    id, login, senha, nome
+                    usuarioid, login, senha, nome
                 FROM
                     " . $this->table_name . 
-                    " ORDER BY id ASC";
+                    " ORDER BY usuarioid ASC";
      
         $stmt = $this->conn->prepare( $query );
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $usuarios[] = new Usuario($id,$login,$senha,$nome);
+            $usuarios[] = new Usuario($usuarioid,$login,$senha,$nome);
         }
         
         return $usuarios;

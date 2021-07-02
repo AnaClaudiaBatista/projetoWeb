@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 02-Jul-2021 às 18:04
+-- Tempo de geração: 02-Jul-2021 às 19:06
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.3.21
 
@@ -33,13 +33,13 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `nome` varchar(50) NOT NULL COMMENT 'NOME CLIENTE',
   `email` varchar(30) NOT NULL COMMENT 'EMAIL CLIENTE',
   `telefone` varchar(11) NOT NULL COMMENT 'TELEFONE CLIENTE',
-  `cpf` varchar(11) NOT NULL COMMENT 'CPF',
+  `cpf` varchar(20) NOT NULL COMMENT 'CPF',
   `senha` varchar(50) DEFAULT NULL COMMENT 'SENHA CADASTRO',
   `tipo_usuario` int(1) NOT NULL COMMENT 'TIPO USUARIO (1 - CLIENTE) (2 - ADM)''',
-  `num_cartaocredito` varchar(16) NOT NULL COMMENT 'NUMERO CARTÃO CLIENTE',
-  `cvv_cartaocredito` int(3) NOT NULL COMMENT 'Codigo Verificador Cartão',
-  `titular_cartaocredito` varchar(30) NOT NULL COMMENT 'Nome Titular Cartao',
-  `vencimento_cartaocredito` date NOT NULL COMMENT 'Data de vencimento cartão',
+  `num_cartaocredito` varchar(16) DEFAULT NULL COMMENT 'NUMERO CARTÃO CLIENTE',
+  `cvv_cartaocredito` int(3) DEFAULT NULL COMMENT 'Codigo Verificador Cartão',
+  `titular_cartaocredito` varchar(30) DEFAULT NULL COMMENT 'Nome Titular Cartao',
+  `vencimento_cartaocredito` date DEFAULT NULL COMMENT 'Data de vencimento cartão',
   PRIMARY KEY (`clienteid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
@@ -176,14 +176,15 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `senha` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
   PRIMARY KEY (`usuarioid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
 INSERT INTO `usuario` (`usuarioid`, `login`, `senha`, `nome`) VALUES
-(1, 'adm', 'adm', 'adm');
+(1, 'adm', 'adm', 'adm'),
+(12, 'adm', 'b09c600fddc573f117449b3723f23d64', 'Ana Maria Braba');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
