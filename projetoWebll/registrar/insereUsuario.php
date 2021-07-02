@@ -8,7 +8,7 @@ $senha           = @$_GET["senha"];
 
 $dao = $factory->getUsuarioDao();
 
-$usuario = new Usuario($usuarioid,$login, $senha, $nome);
+$usuario = new Usuario(null,$login, $senha, $nome);
 
 if ($dao->insere($usuario)){
     /*echo '<div class="alert alert-sucess">

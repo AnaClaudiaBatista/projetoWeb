@@ -34,7 +34,7 @@ include_once "../navegacao/teste_layout_header.php";
 
       <div class="form-group col-md-8">
         <label>Nome</label>
-        <input type="text" class="form-control" name='nome' placeholder="Nome da Empresa">
+        <input type="text" class="form-control" name='nome' placeholder="Nome do Produto">
       </div>
       <div class="form-group col-md-8">
         <label>Descrição</label>

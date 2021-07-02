@@ -10,16 +10,16 @@ class MySqlProdutoDao extends MySqlDao implements ProdutoDao {
     public function insere($produto) {
 
         $query = "INSERT INTO " . $this->table_name . 
-        " (nome, descricao, foto,fornecedorid) VALUES" .
-        " (:nome, :descricao,:foto, :fornecedorid)";
+        " (fornecedorid, nome, descricao, foto,) VALUES" .
+        " ( :fornecedorid, :nome, :descricao,:foto,)";
 
         $stmt = $this->conn->prepare($query);
 
-        
+        $fornecedorid  = $produto->getFornecedorid();
         $nome       = $produto->getNome();        
         $descricao  = $produto->getDescricao();        
         $foto = $produto->getFoto();
-        $fornecedorid  = $produto->getFornecedorid();
+        
         
         
         // bind values 

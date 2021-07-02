@@ -3,12 +3,13 @@ include_once "../fachada.php";
 
 // $clienteid     = @$_GET["clienteid"]; 
 $isPedido                  = @$_POST["isPedido"];
+$login                      = @$_POST["login"];
+$senha                      = @$_POST["senha"];
 $nome                      = @$_POST["nome"];
 $email                     = @$_POST["email"];
 $telefone                  = @$_POST["telefone"];
 $cpf                       = @$_POST["cpf"];
-$login                       = @$_POST["login"];
-$senha                     = @$_POST["senha"];
+$login                     = @$_POST["login"];
 $tipo_usuario              = @$_POST["tipo_usuario"];
 $num_cartaocredito         = @$_POST["num_cartaocredito"];
 $cvv_cartaocredito         = @$_POST["cvv_cartaocredito"];
@@ -25,7 +26,7 @@ $usuarioid = $daoUsuario->insere($user);
 
 if(isset($usuarioid) && $usuarioid > 0)
 {
-    $cliente = new Cliente(null,$nome,$email,$telefone,$cpf, $senha, $tipo_usuario, $num_cartaocredito, $cvv_cartaocredito, $titular_cartaocredito, $vencimento_cartaocredito );
+    $cliente = new Cliente(null,$nome,$email,$telefone,$cpf,  $tipo_usuario, $num_cartaocredito, $cvv_cartaocredito, $titular_cartaocredito, $vencimento_cartaocredito, $usuarioid );
 
     if ($daoCliente->insere($cliente)){
         echo '<div class="alert alert-sucess">

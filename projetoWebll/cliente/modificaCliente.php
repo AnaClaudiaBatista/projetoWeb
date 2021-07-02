@@ -33,7 +33,7 @@ $cliente = $dao->buscaPorId($clienteid);
 
         <div class="form-group col-md-6">
           <label>Número do Cartao</label>
-          <input type="text" class="form-control" name='cartaocredito' value='<?php echo $cliente->getCartaocredito(); ?>' placeholder="Numero do Cartao">
+          <input type="text" class="form-control" name='cartaocredito' value='<?php echo $cliente->getNum_cartaocredito(); ?>' placeholder="Numero do Cartao">
         </div>
       </div>
 

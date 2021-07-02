@@ -3,15 +3,18 @@ include_once "../fachada.php";
 include_once "../utilitarios/images.php";
 
 $produtoid     = @$_POST["produtoid"]; 
+$fornecedorid     = @$_POST["fornecedorid"];
 $nome          = @$_POST["nome"];
 $descricao     = @$_POST["descricao"];
-$image         = @$_FILES["file"];
-$fornecedorid     = @$_POST["fornecedorid"];
+//$image         = @$_FILES["file"];
 
-$content = file_get_contents($image["tmp_name"]);
-$foto = pg_escape_bytea($content);
 
-$produto = new Produto($produtoid, $nome, $descricao, $foto,$fornecedorid);
+//$content = file_get_contents($image["tmp_name"]);
+//$foto = pg_escape_bytea($content);
+
+$produto = new Produto($produtoid,$fornecedorid, $nome, $descricao, null);
+
+//$produto = new Produto($produtoid,$fornecedorid, $nome, $descricao, $foto);
 $dao = $factory->getProdutoDao();
 if ($dao->insere($produto)){
     echo '<div class="alert alert-sucess">
