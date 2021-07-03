@@ -1,5 +1,5 @@
 <?php
-/*
+
 include_once('PedidoDao.php');
 include_once('MySqlDao.php');
 
@@ -11,8 +11,8 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
         $id = 0;
 
         $query = 'INSERT INTO ' . $this->table_name .
-                ' ( "dataPedido", "dataEntregue", situacao, clienteid) VALUES' .
-                ' ( now(), null, :situacao, :clienteid) returning numero';
+                ' ( "data_emissao", "data_entrega", situacao, clienteid) VALUES' .
+                ' ( now(), null, :situacao, :clienteid) returning pedidoid';
 
         $stmt = $this->conn->prepare($query);
 
@@ -24,14 +24,14 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            $id = $row['numero'];
+            $id = $row['pedidoid'];
         }
         
         return $id;
     }
 
     public function insereItemPedido($pedido, $produto, $item_pedido) {
-        $query = 'INSERT INTO "itemPedido"' .
+        $query = 'INSERT INTO "item_pedido"' .
                 ' ( quantidade, preco, pedidoid, produtoid) VALUES' .
                 ' ( :quantidade, :preco, :pedidoid, :produtoid)';
 
@@ -40,7 +40,7 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
         // bindValue || bindParam
         $stmt->bindValue(":quantidade", $item_pedido->quantidade);
         $stmt->bindValue(":preco", $produto->getEstoque()->getPreco());
-        $stmt->bindValue(":pedidoid", $pedido->getNumero());
+        $stmt->bindValue(":pedidoid", $pedido->getpedidoid());
         $stmt->bindValue(":produtoid", $item_pedido->produtoid);
         
         return $stmt->execute();
@@ -95,7 +95,7 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
     {
         if(strcmp($situacao, 'ENTREGUE') == 0)
         {
-            $query_set = " SET situacao = :situacao, \"dataEntregue\" = now()";
+            $query_set = " SET situacao = :situacao, \"data_entrega\" = now()";
         }
         else{
             $query_set = " SET situacao = :situacao";
@@ -103,13 +103,13 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         $query = "UPDATE " . $this->table_name .
             $query_set .
-            " WHERE numero = :numero";
+            " WHERE pedidoid = :pedidoid";
 
         $stmt = $this->conn->prepare($query);
 
         // bindValue || bindParam
         $stmt->bindValue(":situacao", $pedido->getSituacao());
-        $stmt->bindValue(":numero", $pedido->getNumero());
+        $stmt->bindValue(":pedidoid", $pedido->getPedidoid());
 
         // execute the query
         if ($stmt->execute()) {
@@ -123,28 +123,28 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         $pedido = null;
 
-        $where_clause = ' and p.numero = :pedidoid';
+        $where_clause = ' and p.pedidoid = :pedidoid';
 
-        $query = 'select ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
+        $query = 'select * from' .
+            ' p.pedidoid , ' .
+            ' p."data_emissao", ' .
             ' p.situacao , ' .
-            ' p."dataEntregue", ' .
+            ' p."data_entrega", ' .
             ' sum(ip.quantidade * e.preco) as valorTotal, ' .
             ' c.nome ' .
             ' from pedido p ' .
             ' inner join cliente c on c.clienteid = p.clienteid ' .
             ' inner join usuario u on c.usuarioid = u.id ' .
-            ' left join "itemPedido" ip on p.numero = ip.pedidoid ' .
+            ' left join "item_pedido" ip on p.pedidoid = ip.pedidoid ' .
             ' left join produto p2 on ip.produtoid = p2.produtoid ' .
             ' left join estoque e on p2.produtoid = e.produtoid ' .
             ' where 1=1 ' .
             $where_clause . 
             ' group by ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
+            ' p.pedidoid , ' .
+            ' p."data_emissao", ' .
             ' p.situacao , ' .
-            ' p."dataEntregue", ' .
+            ' p."data_entrega", ' .
             ' c.nome ' .
             ' LIMIT 1 OFFSET 0 ';
                     
@@ -155,7 +155,7 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
         
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $pedido = new Pedido($numero, $dataPedido, $dataEntregue, $situacao, $row['valortotal']);
+            $pedido = new Pedido($pedidoid, $data_emissao, $data_entrega, $situacao, $row['valortotal']);
             $pedido->setNomeCliente($nome);
         }
 
@@ -166,13 +166,13 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         $pedido_items = array();
 
-        $where_clause = ' and p.numero = :pedidoid';
+        $where_clause = ' and p.pedidoid = :pedidoid';
 
         $query = 'select distinct ' .
             ' ip.quantidade,' .
             ' ip.produtoid' .
             ' from pedido p ' .
-            ' inner join "itemPedido" ip on p.numero = ip.pedidoid ' .
+            ' inner join "item_pedido" ip on p.pedidoid = ip.pedidoid ' .
             ' where 1=1 ' .
             $where_clause;
                     
@@ -196,50 +196,50 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         if($perfil_usuario > 1)
         {
-            $where_clause = ' and u.id = ' . $clienteid;
+            $where_clause = ' and usuario.usuarioid = ' . $clienteid;
         }
 
         $query = 'select ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
-            ' p.situacao , ' .
-            ' p."dataEntregue", ' .
-            ' sum(ip.quantidade * e.preco) as valorTotal, ' .
-            ' c.nome ' .
-            ' from pedido p ' .
-            ' inner join cliente c on c.clienteid = p.clienteid ' .
-            ' inner join usuario u on c.usuarioid = u.id ' .
-            ' left join "itemPedido" ip on p.numero = ip.pedidoid ' .
-            ' left join produto p2 on ip.produtoid = p2.produtoid ' .
-            ' left join estoque e on p2.produtoid = e.produtoid ' .
+            ' pedido.pedidoid, ' .
+            ' pedido."data_emissao", ' .
+            ' pedido."data_entrega" , ' .
+            ' pedido.situacao, ' .
+            ' sum(item_pedido.quantidade * estoque.preco) as valorTotal, ' .
+            ' cliente.nome ' .
+            ' from pedido ' .
+            ' inner join usuario on usuario.usuarioid = pedido.usuarioid ' .
+            ' inner join cliente on cliente.usuarioid = usuario.usuarioid ' .
+            ' left join item_pedido on pedido.pedidoid = item_pedido.pedidoid ' .
+            ' left join produto on item_pedido.produtoid = produto.produtoid  ' .
+            ' left join estoque on produto.produtoid = estoque.produtoid ' .
             ' where 1=1 ' .
             $where_clause . 
             ' group by ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
-            ' p.situacao , ' .
-            ' p."dataEntregue", '.
-            ' c.nome ';
+            ' pedido.pedidoid , ' .
+            ' pedido."data_emissao", ' .
+            ' pedido.situacao , ' .
+            ' pedido."data_entrega", '.
+            ' cliente.nome ';
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $pedido = new Pedido($numero, $dataPedido, $dataEntregue, $situacao, $row['valortotal']);
+            $pedido = new Pedido($pedidoid, $data_emissao, $data_entrega, $situacao, $row['valortotal']);
             $pedido->setNomeCliente($nome);
             $pedidos[] = $pedido;
         }
 
         return $pedidos;
     }
-    public function buscaTodosIdNome($numero, $nome)  {
+    public function buscaTodosIdNome($pedidoid, $nome)  {
 
         $pedidos = array();
 
-        if($numero != "")
+        if($pedidoid != "")
         {
-            $where_clause = ' and p.numero = ' . $numero;
+            $where_clause = ' and p.pedidoid = ' . $pedidoid;
         }
 
         if($nome != "")
@@ -249,25 +249,25 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
         
 
         $query = 'select ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
+            ' p.pedidoid , ' .
+            ' p."data_emissao", ' .
             ' p.situacao , ' .
-            ' p."dataEntregue", ' .
+            ' p."data_entrega", ' .
             ' sum(ip.quantidade * e.preco) as valorTotal, ' .
             ' c.nome ' .
             ' from pedido p ' .
             ' inner join cliente c on c.clienteid = p.clienteid ' .
             ' inner join usuario u on c.usuarioid = u.id ' .
-            ' left join "itemPedido" ip on p.numero = ip.pedidoid ' .
+            ' left join "item_pedido" ip on p.pedidoid = ip.pedidoid ' .
             ' left join produto p2 on ip.produtoid = p2.produtoid ' .
             ' left join estoque e on p2.produtoid = e.produtoid ' .
             ' where 1=1 ' .
             $where_clause . 
             ' group by ' .
-            ' p.numero , ' .
-            ' p."dataPedido", ' .
+            ' p.pedidoid , ' .
+            ' p."data_emissao", ' .
             ' p.situacao , ' .
-            ' p."dataEntregue", '.
+            ' p."data_entrega", '.
             ' c.nome ';
 
         $stmt = $this->conn->prepare($query);
@@ -275,7 +275,7 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
-            $pedido = new Pedido($numero, $dataPedido, $dataEntregue, $situacao, $row['valortotal']);
+            $pedido = new Pedido($pedidoid, $data_emissao, $data_entrega, $situacao, $row['valortotal']);
             //$pedido->setNomeCliente($nome);
             $pedidos[] = $pedido;
         }
@@ -283,4 +283,3 @@ class MySqlPedidoDao extends MySqlDao implements PedidoDao {
         return $pedidos;
     }
 }
-*/

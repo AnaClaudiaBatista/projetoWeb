@@ -10,23 +10,24 @@ class MySqlProdutoDao extends MySqlDao implements ProdutoDao {
     public function insere($produto) {
 
         $query = "INSERT INTO " . $this->table_name . 
-        " (fornecedorid, nome, descricao, foto,) VALUES" .
-        " ( :fornecedorid, :nome, :descricao,:foto,)";
+            " (  fornecedorid,  nome,   descricao, foto) VALUES" .
+            " ( :fornecedorid, :nome, :descricao, :foto)";
 
         $stmt = $this->conn->prepare($query);
 
         $fornecedorid  = $produto->getFornecedorid();
-        $nome       = $produto->getNome();        
-        $descricao  = $produto->getDescricao();        
-        $foto = $produto->getFoto();
+        $nome          = $produto->getNome();        
+        $descricao     = $produto->getDescricao();        
+        $foto          = $produto->getFoto();
         
         
         
         // bind values 
+        $stmt->bindParam(":fornecedorid", $fornecedorid);  
         $stmt->bindParam(":nome", $nome);
         $stmt->bindParam(":descricao", $descricao);              
         $stmt->bindParam(":foto", $foto);
-        $stmt->bindParam(":fornecedorid", $fornecedorid);  
+        
 
         if($stmt->execute()){
             return true;
@@ -181,7 +182,7 @@ class MySqlProdutoDao extends MySqlDao implements ProdutoDao {
                 $data_foto = 'data:image/png;base64,' . $foto;
             }
 
-            $item = new Produto($produtoid,$nome,$descricao, $fornecedorid, $data_foto);
+            $item = new Produto($produtoid, $fornecedorid,$nome,$descricao, $data_foto);
             $item->setEstoque(new Estoque($produtoid, $preco, $quantidade));
 
             $produtos[] = $item;

@@ -29,7 +29,7 @@ if ($produtos) {
 	echo "<th>Descrição</th>";
 	echo "<th>Quantidade</th>";
 	echo "<th>Preço</th>";
-	echo "<th>Deletar</th>";
+	//echo "<th>Deletar</th>";
 	echo "</tr>";
 
 	foreach ($produtos as $produto) {

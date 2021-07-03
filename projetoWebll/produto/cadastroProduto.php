@@ -2,7 +2,7 @@
 include_once "../navegacao/teste_layout_header.php";
 ?>
 
-<form action="insereProduto.php" method="POST" enctype="multipart/form-data">
+<form action="insereProduto.php" method="get" enctype="multipart/form-data">
   <div class="cadastro">
     <h2>Cadastro de Produtos</h2>
     <div class="row">
@@ -15,7 +15,7 @@ include_once "../navegacao/teste_layout_header.php";
 
       <div class="form-group col-md-7">
         <label>Fornecedor</label>
-        <select class="form-control" name='fornecedor'>
+        <select class="form-control" name='fornecedorid'>
           <option selected>Escolher...</option>
           <?php
           include "../verifica.php";
@@ -38,7 +38,7 @@ include_once "../navegacao/teste_layout_header.php";
       </div>
       <div class="form-group col-md-8">
         <label>Descrição</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name='descricao' placeholder="Descricao"></textarea>
+        <textarea class="form-control" rows="3" name='descricao' placeholder="Descrição"></textarea>
       </div>
     </div>
 

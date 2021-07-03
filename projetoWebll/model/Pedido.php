@@ -1,27 +1,27 @@
 <?php
 class Pedido {
     
-    private $numero;
-    private $dataPedido;
-    private $dataEntregue;
+    private $pedidoid;
+    private $data_emissao;
+    private $data_entrega;
     private $situacao;
 
-    public function __construct( $numero, $dataPedido, $dataEntregue, $situacao)
+    public function __construct( $pedidoid, $data_emissao, $data_entrega, $situacao)
     {
-        $this->numero=$numero;
-        $this->dataPedido=$dataPedido;
-        $this->dataEntregue=$dataEntregue;
+        $this->pedidoid=$pedidoid;
+        $this->data_emissao=$data_emissao;
+        $this->data_entrega=$data_entrega;
         $this->situacao=$situacao;
     }
 
-    public function getNumero() { return $this->numero; }
-    public function setNumero($numero) { $this->numero = $numero; }
+    public function getPedidoid() { return $this->pedidoid; }
+    public function setPedidoid($pedidoid) { $this->pedidoid = $pedidoid; }
 
-    public function getDataPedido() { return $this->dataPedido; }
-    public function setDataPedido($dataPedido) {$this->dataPedido = $dataPedido;}
+    public function getData_emissao() { return $this->data_emissao; }
+    public function setData_emissao($data_emissao) {$this->data_emissao = $data_emissao;}
 
-    public function getDataEntregue() { return $this->dataEntregue; }
-    public function setEntregue($dataEntregue) {$this->dataEntregue = $dataEntregue;}
+    public function getData_entrega() { return $this->data_entrega; }
+    public function setData_entrega($data_entrega) {$this->data_entrega = $data_entrega;}
 
     public function getSituacao() { return $this->situacao; }
     public function setSituacao($situacao) {$this->situacao = $situacao;}

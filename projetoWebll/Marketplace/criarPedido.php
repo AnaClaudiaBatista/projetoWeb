@@ -13,10 +13,13 @@
     $usuario = $_SESSION['usuario_logado'];
     $produtos = $_SESSION['produtos_quantidade'];
 
+ 
     $daoPedido = $factory->getPedidoDao();
+    $daoCliente = $factory->getClienteDao();
     $daoProduto = $factory->getProdutoDao();
 
-    $pedido = new Pedido(0, null, null, 'NOVO');
+    $cliente = $daoCliente->buscaUsuarioCliente($usuario->getId());
+    $pedido = new Pedido(0, null, null, 'NOVO', 0, $cliente->getClienteid());
 
     $id = $daoPedido->insere($pedido);
     $pedido = $daoPedido->buscaPorId($id);
@@ -25,6 +28,8 @@
     {
         $produto = $daoProduto->buscaPorId($item_produto->produtoid);
         $daoPedido->insereItemPedido($pedido, $produto, $item_produto);
+        $daoProduto->AlterarEstoque(1,$item_produto->produtoid, $item_produto->quantidade);
+  
     }
 
     clearSessionCarrinho();

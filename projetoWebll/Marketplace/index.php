@@ -2,11 +2,10 @@
     include_once "../fachada.php";
     include_once "../utilitarios/functions.php";    
     include_once "../navegacao/teste_layout_header.php";
-    
     $dao = $factory->getProdutoDao();
-    $produtos = $dao->buscaTodos();
+    $produtos = $dao->buscaTodos("");
     
-   // session_start();
+    //session_start(); ESTA DANDO ERRO NA TELA, VERIFICAR
    
 
     $usuario_logado = null;
@@ -51,24 +50,24 @@
                             echo '<div class="card" style="width: 25rem;">';
                                 //echo '<img class="card-img-top" src="..." alt="Card image cap">';
                                 echo '<div class="card-body">';
-                                echo '<div class="card-header py-4">';
                                     echo '<h5 class="card-title">' . $produto->getNome() . '</h5>';
-                                    echo '</div>';
                                     echo '<p class="card-text">' . $produto->getDescricao() . '</p>';
-                                    echo ' <h1 class="card-title pricing-card-title">R$ ' . $estoque->getPreco() . '</h1>';
-                                    echo '</div>';
+                                    echo '<p class="card-text">R$ ' . $estoque->getPreco() . '</p>';
+                                    echo '<p class="card-text">Qtd Disp: ' . $estoque->getQuantidade() . '</p>';
+                                echo '</div>';
                                 echo '<div class="card-body">';
                                     
 
-                                    if($estoque->getQuantidade() == null || $estoque->getQuantidade() <= 0)
-                                    {
-                                        echo '<p style="color:red;">Produto indisponível!</p>';
-                                    }
-                                    else{
-                                        echo '<button style="margin: 2px;" type="button" sty class="btn btn-primary btn-lg" onclick="addCarinho(this);" name="' . $produto->getProdutoId() . '">Carrinho <i class="fas fa-cart-plus"></i></button>';
-                                    }
-                                echo '</div>';
+                                   
+                                if($estoque->getQuantidade() == null || $estoque->getQuantidade() <= 0)
+                                {
+                                    echo '<p>Produto indisponível!</p>';
+                                }
+                                else{
+                                    echo '<button style="margin: 2px;" type="button" sty class="btn btn-primary btn-lg" onclick="addCarinho(this);" name="' . $produto->getProdutoId() . '">Carrinho <i class="fas fa-cart-plus"></i></button>';
+                                }
                             echo '</div>';
+                        echo '</div>';
                         }
                         echo '</div>';
                     ?>

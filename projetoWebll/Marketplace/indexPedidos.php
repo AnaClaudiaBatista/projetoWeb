@@ -15,7 +15,8 @@
     $nome_usuario = $info['nome_usuario'];
     $action_url = $info['action_url'];
 
-    $daoPedido = $factory->getPedidoDao();
+    //$daoPedido = $factory->getPedidoDao();
+    $dao = $factory->getPedidoDao();
 
     if(isset($_SESSION['pedidos_filtros']))
     {

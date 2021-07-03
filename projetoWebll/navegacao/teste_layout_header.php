@@ -157,9 +157,11 @@ echo "<a href='../marketplace/index.php' class='nav-link text-light'>Inicio</a><
             <i class="fas fa-user fa-fw"></i>
         </a>        
         <!-- Dropdown - Alerts -->
-        <div class="dropdown-menu"
-            aria-labelledby="alertsDropdown">
-            <h6 class="dropdown-item">Informações do Usuário</h6>
+        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+             aria-labelledby="alertsDropdown">
+            <h6 class="dropdown-header">
+                 Informações do Usuário
+         </h6>
             <?php
                  if (isset($_SESSION["nome_usuario"])) 
                 {
@@ -168,14 +170,13 @@ echo "<a href='../marketplace/index.php' class='nav-link text-light'>Inicio</a><
 
                     echo 
                     '<div class="dropdown-item d-flex align-items-center">' .
-                        '<div class="mr-3">' .
-                            '<div class="icon-circle bg-primary">'.
-                                '<i class="fas fa-file-alt text-white"></i>' .
-                            '</div>'.
+                    '<div class="mr-3">' .
+                        '<div class="icon-circle bg-primary">'.
+                            '<i class="fas fa-file-alt text-white"></i>' .
                         '</div>'.
-                        '<div class="small text-gray-500">Meus Pedidos</div>'.
-                        '<span class="font-weight-bold">Visualizar Pedidos</span>'.
-                    '</div>';
+                    '</div>'.
+                    '<span class="font-weight-bold"><a href="indexPedidos.php">Meus Pedidos</a></span>'.
+                '</div>';
                 }
                 else{
                    // $action = 'indexLogin.php?isLogin=1';

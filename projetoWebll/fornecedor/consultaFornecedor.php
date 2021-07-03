@@ -22,8 +22,6 @@ if ($fornecedores) {
 	<input name='consulta' id='txt_consulta' placeholder='Consultar' type='text' class='form-control'>
 	</div>";
 
-
-
 	echo "<table class='table table-hover table-responsive table-bordered'>";
 	echo "<tr>";
 	echo "<th>ID Fornecedor</th>";
