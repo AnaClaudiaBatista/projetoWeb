@@ -27,7 +27,7 @@
         $isSession = true;
     }
     else{
-        $pedidos = $daoPedido->buscaTodos($usuario_logado->getPerfilid(), $usuario_logado->getId());
+        $pedidos = $daoPedido->buscaTodos($usuario_logado->getPerfilid(), $usuario_logado->getPedidoid());
     }
 
     $adm_perfil = $usuario_logado->getPerfilid();

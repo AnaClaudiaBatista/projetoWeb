@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 02-Jul-2021 às 19:06
+-- Tempo de geração: 04-Jul-2021 às 00:03
 -- Versão do servidor: 5.7.31
 -- versão do PHP: 7.3.21
 
@@ -34,21 +34,19 @@ CREATE TABLE IF NOT EXISTS `cliente` (
   `email` varchar(30) NOT NULL COMMENT 'EMAIL CLIENTE',
   `telefone` varchar(11) NOT NULL COMMENT 'TELEFONE CLIENTE',
   `cpf` varchar(20) NOT NULL COMMENT 'CPF',
-  `senha` varchar(50) DEFAULT NULL COMMENT 'SENHA CADASTRO',
-  `tipo_usuario` int(1) NOT NULL COMMENT 'TIPO USUARIO (1 - CLIENTE) (2 - ADM)''',
   `num_cartaocredito` varchar(16) DEFAULT NULL COMMENT 'NUMERO CARTÃO CLIENTE',
-  `cvv_cartaocredito` int(3) DEFAULT NULL COMMENT 'Codigo Verificador Cartão',
-  `titular_cartaocredito` varchar(30) DEFAULT NULL COMMENT 'Nome Titular Cartao',
-  `vencimento_cartaocredito` date DEFAULT NULL COMMENT 'Data de vencimento cartão',
-  PRIMARY KEY (`clienteid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `usuarioid` int(11) NOT NULL,
+  PRIMARY KEY (`clienteid`),
+  KEY `cliente_fk` (`usuarioid`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `cliente`
 --
 
-INSERT INTO `cliente` (`clienteid`, `nome`, `email`, `telefone`, `cpf`, `senha`, `tipo_usuario`, `num_cartaocredito`, `cvv_cartaocredito`, `titular_cartaocredito`, `vencimento_cartaocredito`) VALUES
-(1, 'Joao da Silv', 'joao@jao.com', '54998755487', '05786547854', NULL, 1, '1234123412341234', 123, 'JOAO SILVA', '2024-12-12');
+INSERT INTO `cliente` (`clienteid`, `nome`, `email`, `telefone`, `cpf`, `num_cartaocredito`, `usuarioid`) VALUES
+(1, 'Joao da Silv', 'joao@jao.com', '54998755487', '05786547854', '1234123412341234', 1),
+(2, 'teste', 'teste@yteste.com', '5898', '6829282', '13258', 2);
 
 -- --------------------------------------------------------
 
@@ -77,11 +75,18 @@ CREATE TABLE IF NOT EXISTS `endereco` (
 
 DROP TABLE IF EXISTS `estoque`;
 CREATE TABLE IF NOT EXISTS `estoque` (
-  `idproduto` int(20) NOT NULL AUTO_INCREMENT,
+  `produtoid` int(20) NOT NULL AUTO_INCREMENT,
   `quantidade` int(11) NOT NULL,
   `preco` double NOT NULL,
-  PRIMARY KEY (`idproduto`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`produtoid`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `estoque`
+--
+
+INSERT INTO `estoque` (`produtoid`, `quantidade`, `preco`) VALUES
+(1, 5, 10);
 
 -- --------------------------------------------------------
 
@@ -98,14 +103,16 @@ CREATE TABLE IF NOT EXISTS `fornecedor` (
   `telefone` varchar(11) NOT NULL,
   `email` varchar(80) NOT NULL,
   PRIMARY KEY (`fornecedorid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `fornecedor`
 --
 
 INSERT INTO `fornecedor` (`fornecedorid`, `nome`, `cnpj`, `descricao`, `telefone`, `email`) VALUES
-(1, 'Fornecedor de Doritos', '1256476816', 'q', '54856584654', 'email@emsail.com');
+(1, 'Fornecedor de Doritos', '1256476816', 'q', '54856584654', 'email@emsail.com'),
+(2, 'Fornecedor de Salgadinhos LDTA', '84.554.874/0001-54', 'Vende Latinhas', '54996442762', 'salgadinhos@teste.com'),
+(3, 'Queijos de Minas', '548.557.487/0001-01', 'Vende Latinhas', '54996442762', 'anac.batiista@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -142,6 +149,18 @@ CREATE TABLE IF NOT EXISTS `pedido` (
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `perfil`
+--
+
+DROP TABLE IF EXISTS `perfil`;
+CREATE TABLE IF NOT EXISTS `perfil` (
+  `perfilid` int(4) NOT NULL,
+  `descricao` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `produto`
 --
 
@@ -154,14 +173,16 @@ CREATE TABLE IF NOT EXISTS `produto` (
   `foto` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`produtoid`),
   KEY `PRODUTO_FORNECEDOR_FK` (`fornecedorid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `produto`
 --
 
 INSERT INTO `produto` (`produtoid`, `fornecedorid`, `nome`, `descricao`, `foto`) VALUES
-(1, 1, 'Doritos Picante', 'qwe', NULL);
+(1, 1, 'Doritos Picante', 'qwe', NULL),
+(2, 2, 'Cebolitos', 'sabor', NULL),
+(5, 2, 'Salgadinhos', 'sas', NULL);
 
 -- --------------------------------------------------------
 
@@ -175,16 +196,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   `login` varchar(50) NOT NULL,
   `senha` varchar(50) NOT NULL,
   `nome` varchar(50) NOT NULL,
-  PRIMARY KEY (`usuarioid`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+  `perfilid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`usuarioid`),
+  KEY `usuario_perfil_fk` (`perfilid`)
+) ENGINE=MyISAM AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`usuarioid`, `login`, `senha`, `nome`) VALUES
-(1, 'adm', 'adm', 'adm'),
-(12, 'adm', 'b09c600fddc573f117449b3723f23d64', 'Ana Maria Braba');
+INSERT INTO `usuario` (`usuarioid`, `login`, `senha`, `nome`, `perfilid`) VALUES
+(1, 'adm', 'adm', 'adm', 2);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

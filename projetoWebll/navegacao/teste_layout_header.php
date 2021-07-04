@@ -32,7 +32,9 @@
   <link rel="stylesheet" href="../libs/css/1custom.css" />
   <link rel="stylesheet" href="../libs/css/bootstrap.min.css" />
     <!-- Custom styles for this template -->
-    <link href="../libs/css/one-page-wonder.min.css" rel="stylesheet">
+    <link href="../libs/css/one-page-wonder.min.css" rel="stylesheet">    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
       <!-- Bootstrap core JavaScript -->
   <script src="../libs/vendor/jquery/jquery.min.js"></script>
   <script src="..libs/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -116,6 +118,7 @@ echo "<a href='../marketplace/index.php' class='nav-link text-light'>Inicio</a><
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="../produto/cadastroProduto.php">Cadastrar Produto</a>
                 <a class="dropdown-item" href="../produto/consultaProduto.php">Consultar Produto</a>
+                <a class="dropdown-item" href="../produto/cadastrarEstoque.php">Cadastrar Estoque</a>
             </li>
             <?php
                  }
@@ -131,21 +134,11 @@ echo "<a href='../marketplace/index.php' class='nav-link text-light'>Inicio</a><
     <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
         aria-labelledby="alertsDropdown" id="lista_carrinho">
-        <!-- <h6 class="dropdown-header">
+         <h6 class="dropdown-header">
             Carrinho
-        </h6> -->
-        <!-- <div class="dropdown-item d-flex align-items-center">
-            <div class="mr-3">
-                <div class="icon-circle bg-primary">
-                    <i class="fas fa-file-alt text-white"></i>
-                </div>
-            </div>
-            <div>
-                <div class="small text-gray-500">December 12, 2019</div>
-                <span class="font-weight-bold">A new monthly report is ready to download!</span>
-            </div>
-        </div> -->
-        <!-- <a class="dropdown-item text-center small text-green" href="#">Finalizar Pedido</a> -->
+        </h6> 
+         
+         <a class="dropdown-item text-center small text-green" href="../marketplace/indexPedido.php">Finalizar Pedido</a> 
     </div>
 </li>         
     
@@ -179,8 +172,8 @@ echo "<a href='../marketplace/index.php' class='nav-link text-light'>Inicio</a><
                 '</div>';
                 }
                 else{
-                   // $action = 'indexLogin.php?isLogin=1';
-                   $action = '../login/login.php';
+                    $action = '../marketplace/indexLogin.php?isLogin=1';
+                   //$action = '../login/login.php';
                     $labelName = 'Entrar';
                 }
 

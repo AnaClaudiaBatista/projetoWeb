@@ -1,5 +1,5 @@
-  <?php
-include_once "../navegacao/teste_layout_header.php";
+<?php
+  include_once "../navegacao/teste_layout_header.php";
 
   if(isset($_GET['isPedido']))
   {

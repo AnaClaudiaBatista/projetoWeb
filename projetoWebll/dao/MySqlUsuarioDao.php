@@ -10,25 +10,39 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
     public function insere($usuario) {
 
         $query = "INSERT INTO " . $this->table_name . 
-        " (login, senha, nome) VALUES" .
-        " (:login, :senha, :nome)";
+        " (login, senha, nome, perfilid) VALUES" .
+        " (:login, :senha, :nome, :perfilid) ";
 
         $stmt = $this->conn->prepare($query);
 
-        $login = $usuario->getLogin();
-        $senha = md5($usuario->getSenha());
-        $nome = $usuario->getNome();
+        $login    = $usuario->getLogin();
+        $senha    = md5($usuario->getSenha());
+        $nome     = $usuario->getNome();
+        $perfilid = $usuario->getPerfilid();
 
         // bind values 
         $stmt->bindParam(":login", $login);
         $stmt->bindParam(":senha", $senha);
         $stmt->bindParam(":nome", $nome);
+        $stmt->bindParam(":perfilid", $perfilid);
 
+       /* if($stmt->execute())
+        {
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usuarioid = $row['usuarioid'];
+
+            return $usuarioid;
+        }
+        else{
+            return 0;
+        }*/
+          
         if($stmt->execute()){
             return true;
         }else{
             return false;
         }
+
     }
 
     public function removePorId($usuarioid) {
@@ -93,7 +107,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome']);
+            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome'], $row['perfilid']);
         } 
      
         return $usuario;
@@ -118,7 +132,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
      
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if($row) {
-            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome']);
+            $usuario = new Usuario($row['usuarioid'],$row['login'], $row['senha'], $row['nome'], $row['perfilid']);
         }
      
         return $usuario;
@@ -155,7 +169,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
 
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-            $usuarios[] = new Usuario($usuarioid,$login,$senha,$nome);
+            $usuarios[] = new Usuario($usuarioid,$login,$senha,$nome, $perfilid);
         }
         
         return $usuarios;

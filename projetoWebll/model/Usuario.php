@@ -5,13 +5,15 @@ class Usuario {
     private $login;
     private $senha;
     private $nome;
+    private $perfilid;
 
-    public function __construct( $usuarioid, $login, $senha, $nome)
+    public function __construct( $usuarioid, $login, $senha, $nome, $perfilid)
     {
         $this->usuarioid=$usuarioid;
         $this->login=$login;
         $this->senha=$senha;
         $this->nome=$nome;
+        $this->perfilid=$perfilid;
     }
 
     public function getUsuarioid() { return $this->usuarioid; }
@@ -25,4 +27,7 @@ class Usuario {
 
     public function getSenha() { return $this->senha; }
     public function setSenha($senha) {$this->senha = $senha;}
+
+    public function getPerfilid() { return $this->perfilid; }
+    public function setPerfilid($perfilid) {$this->perfilid = $perfilid;}
 }
