@@ -14,7 +14,7 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
              " ( :nome, :email, :telefone, :cpf , :num_cartaocredito, :titular_cartaocredito,  :usuarioid)";
  
          $stmt = $this->conn->prepare($query);
- 
+
  
          $nome                      = $cliente->getNome();
          $email                     = $cliente->getEmail();
@@ -22,9 +22,6 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
          $cpf                       = $cliente->getCpf();   
          $num_cartaocredito         = $cliente->getNum_cartaocredito();
          $usuarioid                 = $cliente->getUsuarioid();
- 
- 
-   
  
          // bindValue || bindParam
          $stmt->bindValue(":nome", $nome);
@@ -66,10 +63,7 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
     }*/
 
     public function altera($cliente)
-    { " (  nome,  email,  telefone,  cpf,  num_cartaocredito ) VALUES" .
-        " ( :nome, :email, :telefone, :cpf,:num_cartaocredito)";
-
-
+    { 
         $query = "UPDATE " . $this->table_name .
             " SET nome = :nome,  email = :email,telefone = :telefone, cpf = :cpf,num_cartaocredito = :num_cartaocredito" .
             " WHERE clienteid = :clienteid";
@@ -82,8 +76,7 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
         $stmt->bindValue(":telefone", $cliente->getTelefone());
         $stmt->bindValue(":cpf", $cliente->getCpf());
         $stmt->bindValue(":num_cartaocredito", $cliente->getNum_cartaocredito());
-       
-         
+        $stmt->bindValue(":clienteid", $cliente->getClienteid());   
 
         // execute the query
         if ($stmt->execute()) {
@@ -128,7 +121,7 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
         $clientes = array();
 
         $query = "SELECT
-                    clienteid, nome, email, telefone, cpf
+                    clienteid, nome, email, telefone, cpf, num_cartaocredito, usuarioid
                 FROM
                     " . $this->table_name .
             " ORDER BY clienteid";
@@ -139,7 +132,7 @@ class MySqlClienteDao extends MySqlDao implements ClienteDao {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             extract($row);
           //  $clientes[] = new Cliente($clienteid,$nome, $email, $telefone, $cpf, $tipo_usuario, $num_cartaocredito, $cvv_cartaocredito, $titular_cartaocredito, $vencimento_cartaocredito, $usuarioid);
-           $clientes[] = new Cliente($clienteid,$nome, $email, $telefone, $cpf, null, null);
+           $clientes[] = new Cliente($clienteid,$nome, $email, $telefone, $cpf, $num_cartaocredito, $usuarioid);
 
         }
 

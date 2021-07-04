@@ -53,10 +53,41 @@ class MySqlProdutoDao extends MySqlDao implements ProdutoDao {
 
         return false;
     }
+
+
+
+    public function AlterarEstoque($diminuir,$produtoid, $quantidade)
+    {
+        if($diminuir == 1)
+        {
+            $query_set = " SET QUANTIDADE = QUANTIDADE - :quantidade";
+        }
+        else{
+            $query_set = " SET QUANTIDADE = QUANTIDADE + :quantidade";
+        }
+
+        $query = "UPDATE estoque" .
+         $query_set .
+        " WHERE produtoid = :produtoid";
+
+        $stmt = $this->conn->prepare($query);
+
+        // bind parameters
+        $stmt->bindParam(':produtoid', $produtoid);
+        $stmt->bindParam(':quantidade', $quantidade);
+
+        // execute the query
+        if($stmt->execute()){
+            return true;
+        }    
+
+        return false;
+    }
 /*
     public function remove($produto) {
         return removePorId($produto->getId());
     }*/
+
 
     public function altera($produto) {
 
@@ -183,6 +214,39 @@ class MySqlProdutoDao extends MySqlDao implements ProdutoDao {
             }
 
             $item = new Produto($produtoid, $fornecedorid,$nome,$descricao, $data_foto);
+            $item->setEstoque(new Estoque($produtoid, $preco, $quantidade));
+
+            $produtos[] = $item;
+        }
+        
+        return $produtos;
+    }
+
+    public function buscaTodosPorNome($nome) {
+
+        $produtos = array();
+
+        $query = "SELECT
+                    p.produtoid, p.nome, p.descricao, e.quantidade, e.preco, encode(p.foto, 'base64') as foto
+                FROM
+                    " . $this->table_name . " p" .
+                    " left join estoque e on p.produtoid = e.produtoid  " .
+                    " ORDER BY p.produtoid ASC";
+     
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($row);
+            $data_foto = null;
+            
+
+            if(isset($foto))
+            {
+                $data_foto = 'data:image/png;base64,' . $foto;
+            }
+
+            $item = new Produto($produtoid, $fornecedorid, $nome,$descricao, $data_foto);
             $item->setEstoque(new Estoque($produtoid, $preco, $quantidade));
 
             $produtos[] = $item;

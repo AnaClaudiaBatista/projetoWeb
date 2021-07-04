@@ -12,23 +12,25 @@ $telefone                  = @$_POST["telefone"];
 $cpf                       = @$_POST["cpf"];
 $num_cartaocredito         = @$_POST["num_cartaocredito"];
 
-
+/*
 $daoCliente = $factory->getClienteDao();
-//$daoUsuario = $factory->getUsuarioDao();
-
 $cliente = new Cliente(null,$nome,$email,$telefone,$cpf, $num_cartaocredito, null );
 $dao = $factory->getClienteDao();
 $dao->insere($cliente);
 
 header("Location: consultaCliente.php");
-/*
+
+*/
+
+$daoUsuario = $factory->getUsuarioDao();
+$daoCliente = $factory->getClienteDao();
 $user = new Usuario(null, $login, $senha, $nome, 2);
 
 $usuarioid = $daoUsuario->insere($user);
 
 if(isset($usuarioid) && $usuarioid > 0)
 {
-    $cliente = new Cliente(null,$nome,$email,$telefone,$cpf, $num_cartaocredito, 40 );
+    $cliente = new Cliente(null,$nome,$email,$telefone,$cpf, $num_cartaocredito, $usuarioid );
 
     if ($daoCliente->insere($cliente)){
         echo '<div class="alert alert-sucess">
@@ -59,7 +61,7 @@ else{
                 <strong>Erro ao cadastrar Usuário!</strong> Não foi possível cadastrar a avaliação.
                 </div>';
 }
-*/
+
 
 
 exit;

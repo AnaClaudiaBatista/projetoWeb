@@ -11,7 +11,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
 
         $query = "INSERT INTO " . $this->table_name . 
         " (login, senha, nome, perfilid) VALUES" .
-        " (:login, :senha, :nome, :perfilid) ";
+        " (:login, :senha, :nome, :perfilid) returning usuarioid";
 
         $stmt = $this->conn->prepare($query);
 
@@ -26,7 +26,7 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         $stmt->bindParam(":nome", $nome);
         $stmt->bindParam(":perfilid", $perfilid);
 
-       /* if($stmt->execute())
+        if($stmt->execute())
         {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $usuarioid = $row['usuarioid'];
@@ -35,13 +35,13 @@ class MySqlUsuarioDao extends MySqlDao implements UsuarioDao {
         }
         else{
             return 0;
-        }*/
+        }
           
-        if($stmt->execute()){
+        /*if($stmt->execute()){
             return true;
         }else{
             return false;
-        }
+        }*/
 
     }
 

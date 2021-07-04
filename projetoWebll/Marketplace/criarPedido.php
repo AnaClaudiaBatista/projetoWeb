@@ -19,7 +19,7 @@
     $daoProduto = $factory->getProdutoDao();
 
     $cliente = $daoCliente->buscaUsuarioCliente($usuario->getId());
-    $pedido = new Pedido(0, null, null, 'NOVO', 0, $cliente->getClienteid());
+    $pedido = new Pedido(0, null, null,null, 'NOVO', 0, $cliente->getClienteid());
 
     $id = $daoPedido->insere($pedido);
     $pedido = $daoPedido->buscaPorId($id);

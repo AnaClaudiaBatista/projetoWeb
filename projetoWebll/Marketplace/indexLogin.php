@@ -37,7 +37,7 @@
 				</div> 
 				<button type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">Entrar</button>
 				<p class="txt-center ls-login-signup">Não possui cadastro?
-					<a href="../registrar/registrarUsuario.php">Cadastre-se agora</a>
+					<a href="../registrar/registrar.php">Cadastre-se agora</a>
 				</p>
                 <a href="../cliente/cadastroCliente.php?isPedido=1" class="btn btn-warning" style="margin-top:10px;">Novo Usuário</a>
 

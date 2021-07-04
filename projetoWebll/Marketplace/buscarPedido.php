@@ -4,12 +4,12 @@
 
     $daoPedido = $factory->getPedidoDao();
 
-    $numero = $_POST['numero'];
+    $pedidoid = $_POST['pedidoid'];
     $nome = $_POST['nome'];
 
     $pedidos = $daoPedido->buscaTodosIdNome($numero, $nome);
 
-    $_SESSION['pedidos_filtros'] = array('numero'=> $numero, 'nome'=> $nome, 'pedidos'=> $pedidos);
+    $_SESSION['pedidos_filtros'] = array('pedidoid'=> $numero, 'nome'=> $nome, 'pedidos'=> $pedidos);
 
     header('Location: IndexPedidos.php');
 ?>
